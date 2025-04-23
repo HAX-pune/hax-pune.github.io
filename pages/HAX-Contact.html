@@ -5,42 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - HAX</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6; /* Tailwind gray-100 */
         }
         .logo {
-            height: 80px;
-            margin-bottom: 20px;
+            height: 80px; /* Adjust height as needed */
+            margin-bottom: 1.25rem; /* 20px */
+            /* Ensure the path is correct relative to the HTML file */
         }
         .form-container {
             background-color: #ffffff; /* Tailwind white */
             border: 1px solid #e5e7eb; /* Tailwind gray-200 */
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem; /* 8px */
+            padding: 1.25rem; /* 20px */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Tailwind shadow-md */
         }
-        .form-container input, .form-container textarea {
+        .form-container input,
+        .form-container textarea {
             border: 1px solid #d1d5db; /* Tailwind gray-300 */
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
-        .form-container input:focus, .form-container textarea:focus {
+        .form-container input:focus,
+        .form-container textarea:focus {
             border-color: #2563eb; /* Tailwind blue-600 */
             outline: none;
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3); /* Tailwind blue-600 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); /* Tailwind blue-600 focus ring */
+        }
+        /* Style for the status message */
+        #statusMessage {
+            margin-top: 1rem; /* 16px */
+            padding: 0.75rem 1rem; /* 12px 16px */
+            border-radius: 0.375rem; /* 6px */
+            font-size: 0.875rem; /* 14px */
+            font-weight: 500;
+            text-align: center;
+        }
+        .status-success {
+            background-color: #d1fae5; /* Tailwind green-100 */
+            color: #065f46; /* Tailwind green-800 */
+            border: 1px solid #6ee7b7; /* Tailwind green-300 */
+        }
+        .status-error {
+            background-color: #fee2e2; /* Tailwind red-100 */
+            color: #991b1b; /* Tailwind red-800 */
+            border: 1px solid #fca5a5; /* Tailwind red-300 */
         }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-6">
-    <!-- HAX Logo -->
     <img src="../pages/img/logo/LOGO_HAX_GREEN.png" alt="HAX Logo" class="logo">
-
-    <!-- Page Title -->
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Contact Us</h1>
 
-    <!-- Contact Form -->
     <div class="form-container w-full max-w-md">
-        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-4">
+        <form id="contactForm" class="space-y-4">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Your Name</label>
                 <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter your name">
@@ -53,17 +73,85 @@
                 <label for="message" class="block text-sm font-medium text-gray-700">Your Message</label>
                 <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-3 py-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter your message"></textarea>
             </div>
-            <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
+            <button type="submit" id="submitButton" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed">
                 Send Message
             </button>
         </form>
+        <div id="statusMessage" class="hidden"></div>
     </div>
 
-    <!-- Contact Information -->
     <div class="mt-8 text-center">
         <p class="text-gray-600">You can also reach us at:</p>
         <p class="text-gray-800 font-medium">Email: <a href="mailto:hax-pune@hax.co" class="text-blue-600 hover:text-blue-700">hax-pune@hax.co</a></p>
         <p class="text-gray-800 font-medium">Phone: <a href="tel:+917420927178" class="text-blue-600 hover:text-blue-700">+917420927178</a></p>
     </div>
+
+    <script>
+        // Use the correct Google Apps Script Web App URL provided by the user
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwlJi16TmqiSqpLPfBbgB68CnhkvVAGZRb-kcowyKFOQ49LPdu5Iu6NEkTyvoxXCAdY7A/exec';
+        const form = document.getElementById('contactForm');
+        const submitButton = document.getElementById('submitButton');
+        const statusMessage = document.getElementById('statusMessage');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Disable button and show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            statusMessage.textContent = ''; // Clear previous messages
+            statusMessage.className = 'hidden'; // Hide status message initially
+
+            // Create a FormData object from the form
+            const formData = new FormData(form);
+
+            // Send the data using fetch (Removed mode: 'no-cors')
+            fetch(scriptURL, {
+                method: 'POST',
+                // mode: 'no-cors', // <--- REMOVED THIS LINE
+                cache: 'no-cache', // Cache can often be default, but 'no-cache' is fine here
+                body: formData
+            })
+            .then(response => {
+                 // Check if the response is ok (status code 200-299)
+                 if (!response.ok) {
+                    // If not ok, throw an error to be caught by the .catch block
+                    // Try to get text for more details, otherwise use status text
+                    return response.text().then(text => {
+                       throw new Error(`HTTP error! status: ${response.status}, message: ${text || response.statusText}`);
+                    });
+                 }
+                 // If response is ok, parse it as JSON
+                 return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                // Check the 'result' field from the Apps Script JSON response
+                if (data.result === 'success') {
+                    // Display success message
+                    statusMessage.textContent = 'Message sent successfully!';
+                    statusMessage.className = 'status-success'; // Apply success styling
+                    form.reset(); // Clear the form fields
+                } else {
+                    // Display error message from Apps Script or a generic one
+                    statusMessage.textContent = data.message || 'An error occurred processing the response. Please try again.';
+                    statusMessage.className = 'status-error'; // Apply error styling
+                }
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                // Display network or other fetch/parsing errors
+                statusMessage.textContent = 'An error occurred. Please check your connection and try again. Details: ' + error.message;
+                statusMessage.className = 'status-error'; // Apply error styling
+            })
+            .finally(() => {
+                // Re-enable the button regardless of success or error
+                submitButton.disabled = false;
+                submitButton.textContent = 'Send Message';
+                // Make status message visible
+                statusMessage.classList.remove('hidden');
+            });
+        });
+    </script>
 </body>
 </html>
