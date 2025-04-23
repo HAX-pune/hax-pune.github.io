@@ -52,7 +52,8 @@
                 <img src="./img/logo/LOGO_HAX_GREEN.png" alt="Logo" class="h-12 mx-auto">
             </div>
             <h1 class="text-xl font-bold mb-6 text-gray-800">HAX CAD Test</h1>
-            <p class="text-gray-600 text-sm mb-6">
+            
+            <p class="text-gray-600 text-sm mb-6" id="test-description">
                 Welcome to the HAX CAD Test. Please fill in your details below to start the test. You will have 20 minutes to complete the test once you start.
                 </p>
             <form id="user-details-form" class="space-y-4">
@@ -70,11 +71,12 @@
                     <label for="userPhone" class="block text-sm font-medium text-gray-700 text-left">Phone Number</label>
                     <input type="tel" id="userPhone" name="userPhone" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter your phone number">
                      <p id="userPhoneError" class="error-message text-left"></p>
-                </div>
+                
                 <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                     Start Test
                 </button>
             </form>
+        </div>
         </div>
     </div>
 
@@ -147,6 +149,7 @@
         const submitButton = document.getElementById('submitButton');
         const loadingIndicator = document.getElementById('loadingIndicator');
         const submissionErrorDetails = document.getElementById('submissionErrorDetails');
+        const testDesciption = document.getElementById('test-description');
 
         // Display elements
         const displayUserName = document.getElementById('displayUserName');
@@ -435,10 +438,19 @@
         window.addEventListener('load', () => {
             resumeTimer(); // Resume the timer when the page loads
         });
+        
 
         // --- Initial Setup ---
         showPage('landing-page'); // Show landing page initially
-
+        
+        
+        
+        
+        const isTestAvailable = false; // Set to false to hide the test page
+        if (!isTestAvailable) {
+        testDesciption.textContent = "We are not accepting any entries for the test at the moment. Please contact your College for applying";// Hide test page initially
+        userDetailsForm.style.display = 'none'; // Hide user details form initially
+        }
     </script>
 
 </body>

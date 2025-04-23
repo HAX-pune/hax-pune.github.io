@@ -47,28 +47,70 @@
     <!-- Links Section -->
     <div class="w-full max-w-md">
         <!-- Link to CAD Test -->
-        <div class="link-card">
+        <div id="cad-test-link" class="link-card">
             <a href="./pages/HAX-CAD-test.html">Start the CAD Test</a>
             <p class="text-sm text-gray-600 mt-2">Test your CAD modeling skills by creating a 3D model and calculating its mass.</p>
         </div>
 
-        <!-- Link to Another Test -->
-        <div class="link-card">
+        <!-- Link to Mechanical Test -->
+        <div id="mechanical-test-link" class="link-card">
             <a href="./pages/HAX-Mechanical-test.html">Start the Mechanical Test</a>
+            <p class="text-sm text-gray-600 mt-2">Evaluate your mechanical engineering knowledge with this test.</p>
+        </div>
+        <!-- Link to Mechanical Test -->
+        <div id="electrical-test-link" class="link-card">
+            <a href="./pages/HAX-Electrical-test.html">Start the Electrical Test</a>
+            <p class="text-sm text-gray-600 mt-2">Evaluate your mechanical engineering knowledge with this test.</p>
+        </div>
+        <!-- Link to Mechanical Test -->
+        <div id="electronics-test-link" class="link-card">
+            <a href="./pages/HAX-Mechanical-test.html">Start the Electronics Test</a>
             <p class="text-sm text-gray-600 mt-2">Evaluate your mechanical engineering knowledge with this test.</p>
         </div>
 
         <!-- Link to Resources -->
-        <div class="link-card">
+        <div id="resources-link" class="link-card">
             <a href="./pages/HAX-Resources.html">View Resources</a>
             <p class="text-sm text-gray-600 mt-2">Access helpful resources and guidelines for your tests.</p>
         </div>
 
         <!-- Link to Contact -->
-        <div class="link-card">
+        <div id="contact-link" class="link-card">
             <a href="./pages/HAX-Contact.html">Contact Us</a>
             <p class="text-sm text-gray-600 mt-2">Have questions? Get in touch with the HAX team for assistance.</p>
         </div>
     </div>
+
+    <script>
+        // Flags for each module
+        const flags = {
+            cadTest: true, // Set to false to hide the CAD Test link
+            mechanicalTest: false, // Set to false to hide the Mechanical Test link
+            electricalTest: false, // Set to false to hide the Electrical Test link
+            electronicsTest: false, // Set to false to hide the Electronics Test link
+            resources: false, // Set to false to hide the Resources link
+            contact: true // Set to false to hide the Contact Us link
+        };
+
+        // Dynamically hide links based on flags
+        if (!flags.cadTest) {
+            document.getElementById('cad-test-link').style.display = 'none';
+        }
+        if (!flags.mechanicalTest) {
+            document.getElementById('mechanical-test-link').style.display = 'none';
+        }
+        if( !flags.electricalTest) {
+            document.getElementById('electrical-test-link').style.display = 'none';
+        }
+        if( !flags.electronicsTest) {
+            document.getElementById('electronics-test-link').style.display = 'none';
+        }
+        if (!flags.resources) {
+            document.getElementById('resources-link').style.display = 'none';
+        }
+        if (!flags.contact) {
+            document.getElementById('contact-link').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
