@@ -133,7 +133,7 @@
         let timerInterval; // To store the interval ID for the timer
         let timeLeft; // Global variable to track remaining time
         const totalTime = 20 * 60; // 20 minutes in seconds
-        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby7jaefGpyeLjs_cMq31qhkXTGOKeDnTxiZzi551HWK9-FvDqlBDBKOinBaSmddmBOmtw/exec'; // Replace with your URL
+        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKr0UVkGyO9G2yt7Clh-TlSUjsm7Rjo7SUSYNnQXqb8lSNK2nRvQZeh-_1-OZwcFjC/exec'; // Replace with your URL
 
         const images = [
             'HAX-CAD-test-661.jpg',
@@ -152,7 +152,7 @@
         const submitButton = document.getElementById('submitButton');
         const loadingIndicator = document.getElementById('loadingIndicator');
         const submissionErrorDetails = document.getElementById('submissionErrorDetails');
-        const testDesciption = document.getElementById('test-description');
+        const testDescription = document.getElementById('test-description');
 
         // Display elements
         const displayUserName = document.getElementById('displayUserName');
@@ -184,6 +184,7 @@
             const pageToShow = document.getElementById(pageId);
             if (pageToShow) {
                 pageToShow.classList.add('active');
+                localStorage.setItem('currentPage', pageId); // Save the current page to localStorage
             } else {
                 console.error("Page not found:", pageId);
             }
@@ -323,17 +324,19 @@
 
             // Store details
             userDetails = { name, email, phone };
-
-            // Display details on test page
-            displayUserName.textContent = userDetails.name;
-            displayUserEmail.textContent = userDetails.email;
-            displayUserPhone.textContent = userDetails.phone;
+            localStorage.setItem('userDetails', JSON.stringify(userDetails)); // Save user details to localStorage
 
             // --- Select a random image ---
             const randomIndex = Math.floor(Math.random() * images.length);
             const randomImage = images[randomIndex];
             componentImage.src = `./img/test-img/${randomImage}`;
             componentImage.dataset.identifier = randomImage; // Store identifier as the image name
+            localStorage.setItem('selectedImage', randomImage); // Save the selected image to localStorage
+
+            // Display details on test page
+            displayUserName.textContent = userDetails.name;
+            displayUserEmail.textContent = userDetails.email;
+            displayUserPhone.textContent = userDetails.phone;
 
             // Switch to test page and start timer
             showPage('test-page');
@@ -435,23 +438,45 @@
             clearTimerData(); // Clear timer data after submission
         }
 
+        // Function to restore the test state on page load
+        function restoreState() {
+            const currentPage = localStorage.getItem('currentPage');
+            const savedUserDetails = localStorage.getItem('userDetails');
+            const savedImage = localStorage.getItem('selectedImage');
+
+            if (currentPage === 'test-page' && savedUserDetails) {
+                // Restore user details
+                userDetails = JSON.parse(savedUserDetails);
+                displayUserName.textContent = userDetails.name;
+                displayUserEmail.textContent = userDetails.email;
+                displayUserPhone.textContent = userDetails.phone;
+
+                // Restore the selected image
+                if (savedImage) {
+                    componentImage.src = `./img/test-img/${savedImage}`;
+                    componentImage.dataset.identifier = savedImage;
+                }
+
+                // Show the test page and resume the timer
+                showPage('test-page');
+                resumeTimer();
+            } else {
+                // Default to landing page
+                showPage('landing-page');
+            }
+        }
+
         // --- Event Listeners ---
         userDetailsForm.addEventListener('submit', handleUserDetailsSubmit);
         massSubmissionForm.addEventListener('submit', handleSubmitTestData);
         window.addEventListener('load', () => {
-            resumeTimer(); // Resume the timer when the page loads
+            restoreState(); // Restore the state on page load
         });
         
-
         // --- Initial Setup ---
-        showPage('landing-page'); // Show landing page initially
-        
-        
-        
-        
         const isTestAvailable = true; // Set to false to hide the test page
         if (!isTestAvailable) {
-        testDesciption.textContent = "We are not accepting any entries for the test at the moment. Please contact your College for applying";// Hide test page initially
+        testDescription.textContent = "We are not accepting any entries for the test at the moment. Please contact your College for applying";// Hide test page initially
         userDetailsForm.style.display = 'none'; // Hide user details form initially
         }
     </script>

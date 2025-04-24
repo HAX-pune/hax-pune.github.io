@@ -3,12 +3,826 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HAX Mechanical Test</title>
+    <title>Mechanical Engineering Aptitude Test</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Styles adapted from the CAD Test example */
+        body {
+            font-family: 'Inter', sans-serif; /* Use Inter font */
+            background-color: #f3f4f6; /* bg-gray-100 */
+        }
+        .page-section {
+            display: none; /* Hide all pages by default */
+            min-height: 80vh; /* Ensure pages take significant height */
+        }
+        .page-section.active {
+            display: flex; /* Show the active page */
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+        }
+        .content-container {
+             background-color: #ffffff; /* bg-white */
+             padding: 2rem; /* p-8 */
+             border-radius: 0.5rem; /* rounded-lg */
+             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+             width: 100%;
+             max-width: 48rem; /* max-w-3xl */
+             margin: 1rem auto; /* Center the box */
+         }
+         #userDetailsPage .content-container {
+              max-width: 32rem; /* max-w-md */
+         }
+        .input-field {
+            margin-top: 0.25rem; /* mt-1 */
+            display: block;
+            width: 100%;
+            padding: 0.5rem 0.75rem; /* px-3 py-2 */
+            border: 1px solid #d1d5db; /* border-gray-300 */
+            border-radius: 0.375rem; /* rounded-md */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+            font-size: 0.875rem; /* sm:text-sm */
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #4f46e5; /* focus:border-indigo-500 */
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3); /* focus:ring-indigo-500 equivalent */
+        }
+         .error-message {
+            color: #dc2626; /* red-600 */
+            font-size: 0.875rem; /* text-sm */
+            margin-top: 0.25rem; /* mt-1 */
+            display: block; /* Ensure it takes space */
+            text-align: left; /* Match CAD test error alignment */
+            min-height: 1.25rem; /* Ensure space even when empty */
+         }
+         .error-message.hidden { display: none; }
+         .input-field.border-red-500 { border-color: #ef4444; }
+        .question-container {
+            background-color: #f9fafb; /* bg-gray-50 */
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            border-radius: 0.375rem; /* rounded-md */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        .question-text {
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 1rem; /* mb-4 */
+            color: #374151; /* text-gray-700 */
+        }
+        /* Style for question images */
+        .question-image {
+             display: block;
+             max-width: 100%; /* Ensure image fits container */
+             height: auto; /* Maintain aspect ratio */
+             margin-top: 1rem; /* Add space above image */
+             margin-bottom: 1rem; /* Add space below image */
+             border: 1px solid #e5e7eb; /* Subtle border */
+             border-radius: 0.375rem; /* Rounded corners */
+        }
+        .option-label {
+            display: block;
+            margin-bottom: 0.75rem; /* mb-3 */
+            padding: 0.75rem; /* p-3 */
+            border-radius: 0.375rem; /* rounded-md */
+            background-color: #ffffff; /* bg-white */
+            border: 1px solid #d1d5db; /* border-gray-300 */
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            font-size: 0.875rem; /* text-sm */
+            color: #374151; /* text-gray-700 */
+        }
+        .option-label:hover { background-color: #f3f4f6; }
+        input[type="radio"]:checked + .option-label {
+            background-color: #e0e7ff; /* bg-indigo-100 */
+            border-color: #818cf8; /* border-indigo-400 */
+            color: #3730a3; /* text-indigo-800 */
+            font-weight: 500; /* font-medium */
+        }
+        input[type="radio"] { display: none; }
+        .action-button {
+             display: inline-flex;
+             justify-content: center;
+             width: 100%; /* w-full */
+             padding: 0.5rem 1rem; /* py-2 px-4 */
+             border: 1px solid transparent;
+             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+             font-size: 0.875rem; /* text-sm */
+             font-weight: 500; /* font-medium */
+             border-radius: 0.375rem; /* rounded-md */
+             color: #ffffff; /* text-white */
+             background-color: #4f46e5; /* bg-indigo-600 */
+             cursor: pointer;
+             transition: background-color 0.15s ease-in-out;
+        }
+        .action-button:hover { background-color: #4338ca; }
+         .action-button:focus {
+             outline: none;
+             box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+         }
+         .action-button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .timer-container {
+             font-size: 1.5rem; /* text-2xl */
+             font-weight: 600; /* font-semibold */
+             color: #dc2626; /* text-red-600 */
+             text-align: right; /* Align to the right */
+        }
+         .timer-expired { color: #dc2626; font-weight: bold; }
+        .results-container {
+            margin-top: 2rem; /* mt-8 */
+            padding: 2rem; /* p-8 */
+            background-color: #ffffff; /* bg-white */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            text-align: center;
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 500; /* font-medium */
+            color: #1f2937; /* text-gray-800 */
+        }
+        .diagram-svg { /* Kept for potential future use, but not used in current questions */
+             display: block;
+             margin: 1rem auto;
+             max-width: 300px;
+             border: 1px solid #ccc;
+             background-color: #fff;
+             padding: 10px;
+             border-radius: 4px;
+        }
+        .hidden { display: none; }
+        label {
+             display: block;
+             text-align: left;
+             font-size: 0.875rem; /* text-sm */
+             font-weight: 500; /* font-medium */
+             color: #374151; /* text-gray-700 */
+             margin-bottom: 0.25rem; /* mb-1 */
+        }
+        .text-center { text-align: center; }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-    <h1 class="text-2xl font-bold text-gray-800">HAX Mechanical Test</h1>
-    <p class="text-gray-600 mt-4">This is a placeholder page for the Mechanical Test. Replace this content with the actual test.</p>
-    <a href="../index.html" class="mt-6 text-blue-600 hover:text-blue-700">Go Back to Home</a>
+<body class="bg-gray-100">
+
+    <div id="userDetailsPage" class="page-section">
+        <div class="content-container">
+            <div id="logo" class="mb-4">
+                <img src="./img/logo/LOGO_HAX_GREEN.png" alt="Logo" class="h-12 mx-auto">
+            </div>
+            <h1 class="text-xl md:text-2xl font-bold text-center text-gray-800 mb-6">Mechanical Engineering Aptitude Test</h1>
+            <p class="text-center text-gray-600 text-sm mb-6">
+                Please fill in your details below to start the test. You will have <span id="testDurationDisplay">20</span> minutes to complete the test once you start.
+            </p>
+            <form id="userDetailsForm" class="space-y-4">
+                <div>
+                    <label for="userName">Full Name:</label>
+                    <input type="text" id="userName" name="userName" required class="input-field" placeholder="Enter your name">
+                    <span id="userNameError" class="error-message hidden">Name is required.</span>
+                </div>
+                <div>
+                    <label for="userEmail">Email Address:</label>
+                    <input type="email" id="userEmail" name="userEmail" required class="input-field" placeholder="Enter your email">
+                    <span id="userEmailError" class="error-message hidden">Please enter a valid email address.</span>
+                </div>
+                <div>
+                    <label for="userPhone">Phone Number:</label>
+                    <input type="tel" id="userPhone" name="userPhone" required class="input-field" placeholder="Enter your phone number">
+                    <span id="userPhoneError" class="error-message hidden">Phone number is required.</span>
+                </div>
+                <div class="pt-2">
+                    <button type="submit" class="action-button">Start Test</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="quizPage" class="page-section hidden">
+         <div class="content-container">
+             <div class="flex justify-between items-center mb-4 border-b border-gray-200 pb-4">
+                <h1 class="text-xl font-bold text-gray-800">Test In Progress</h1>
+                <div id="timer" class="timer-container">20:00</div>
+             </div>
+             <div class="mb-6 p-4 bg-gray-50 rounded-md border border-gray-200 text-sm text-gray-600">
+                 <p><strong>Name:</strong> <span id="displayUserName"></span></p>
+                 <p><strong>Email:</strong> <span id="displayUserEmail"></span></p>
+             </div>
+
+            <form id="quizForm">
+                <div id="questionsContainer">
+                    </div>
+                <div class="text-center mt-8">
+                    <button type="submit" id="submitButton" class="action-button w-auto px-6">Submit Test</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="resultsPage" class="page-section hidden">
+         <div class="content-container max-w-md">
+             <svg class="mx-auto h-12 w-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+             </svg>
+             <h1 class="text-2xl font-bold mt-4 mb-4 text-center text-gray-800">Test Submitted!</h1>
+            <div id="results" class="results-container shadow-none border-none bg-transparent p-0 mt-0 text-center">
+                 Calculating results...
+            </div>
+             <p class="text-center text-gray-600 mt-4 text-sm">Thank you for completing the test. Your results have been recorded.</p>
+             <div id="submissionStatus" class="text-center text-sm mt-2"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- Configuration ---
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6BFW02H1NGBVQR0LqgFQCMZ8kzZ9zHnEpu98o0qYX2Jjerek4n6QiNB7twiPfSy5fdg/exec"; // !!! IMPORTANT: Replace !!!
+        const QUIZ_DURATION_MINUTES = 20;
+
+        // --- Quiz Data ---
+        const questions = [
+            // Thermodynamics & Fluid Mechanics
+            {
+                question: "1. The First Law of Thermodynamics is essentially a statement of:",
+                options: [
+                    "A) Conservation of mass",
+                    "B) Conservation of energy",
+                    "C) Increase of entropy",
+                    "D) Conservation of momentum"
+                ],
+                correctAnswer: 1,
+                image: null // Add image URL here if available
+            },
+            {
+                question: "2. For an ideal gas undergoing an isothermal process, which property remains constant?",
+                options: [
+                    "A) Pressure",
+                    "B) Volume",
+                    "C) Temperature",
+                    "D) Internal Energy" // For ideal gas, internal energy depends only on T
+                ],
+                correctAnswer: 2, // Temperature is constant by definition
+                image: null
+            },
+            {
+                question: "3. The efficiency of a Carnot engine operating between two temperatures T_H (hot) and T_C (cold) is given by:",
+                options: [
+                    "A) 1 - (T_C / T_H)",
+                    "B) (T_H / T_C) - 1",
+                    "C) 1 - (T_H / T_C)",
+                    "D) T_H / T_C"
+                ],
+                correctAnswer: 0, // Temperatures must be absolute (Kelvin or Rankine)
+                image: null
+            },
+            {
+                question: "4. Viscosity in a fluid is primarily caused by:",
+                options: [
+                    "A) Gravitational forces",
+                    "B) Pressure differences",
+                    "C) Cohesive forces between molecules and molecular momentum exchange",
+                    "D) Surface tension"
+                ],
+                correctAnswer: 2,
+                image: null
+            },
+            {
+                question: "5. According to Archimedes' principle, the buoyant force on a submerged object is equal to:",
+                options: [
+                    "A) The weight of the object",
+                    "B) The volume of the object",
+                    "C) The weight of the fluid displaced by the object",
+                    "D) The pressure at the bottom of the object"
+                ],
+                correctAnswer: 2,
+                image: null
+            },
+            // Mechanics of Materials & Statics/Dynamics
+            {
+                question: "6. Stress is defined as:",
+                options: [
+                    "A) Force per unit length",
+                    "B) Force per unit area",
+                    "C) Deformation per unit length",
+                    "D) Mass per unit volume"
+                ],
+                correctAnswer: 1,
+                image: null
+            },
+            {
+                question: "7. Hooke's Law relates which two quantities within the elastic limit of a material?",
+                options: [
+                    "A) Stress and Temperature",
+                    "B) Force and Velocity",
+                    "C) Stress and Strain",
+                    "D) Mass and Acceleration"
+                ],
+                correctAnswer: 2,
+                image: null
+            },
+            {
+                question: "8. For a beam subjected to pure bending, the neutral axis is the location where:",
+                options: [
+                    "A) Shear stress is maximum",
+                    "B) Bending stress is maximum",
+                    "C) Bending stress is zero",
+                    "D) The material yields"
+                ],
+                correctAnswer: 2,
+                image: null
+            },
+            {
+                question: "9. A truss structure is primarily designed to carry loads through members experiencing:",
+                options: [
+                    "A) Bending moments",
+                    "B) Torsional shear stress",
+                    "C) Axial tension or compression",
+                    "D) Transverse shear stress"
+                ],
+                correctAnswer: 2,
+                image: null
+            },
+            {
+                question: "10. Newton's Second Law of Motion is mathematically expressed as:",
+                options: [
+                    "A) F = ma (Force = mass x acceleration)",
+                    "B) P = mv (Momentum = mass x velocity)",
+                    "C) W = Fd (Work = force x distance)",
+                    "D) E = mc^2"
+                ],
+                correctAnswer: 0,
+                image: null
+            },
+            // Material Science & Manufacturing
+             {
+                question: "11. Which of the following is generally considered the hardest known natural material?",
+                options: [
+                    "A) Steel",
+                    "B) Titanium",
+                    "C) Diamond",
+                    "D) Quartz"
+                ],
+                correctAnswer: 2,
+                image: null
+            },
+             {
+                question: "12. Annealing is a heat treatment process primarily used to:",
+                options: [
+                    "A) Increase hardness and strength",
+                    "B) Relieve internal stresses and increase ductility/softness",
+                    "C) Improve wear resistance",
+                    "D) Create a corrosion-resistant surface"
+                ],
+                correctAnswer: 1,
+                image: null
+            },
+             {
+                question: "13. Which manufacturing process is most suitable for producing long, continuous shapes with a constant cross-section, like pipes or I-beams?",
+                options: [
+                    "A) Casting",
+                    "B) Forging",
+                    "C) Extrusion",
+                    "D) Injection Molding"
+                ],
+                correctAnswer: 2,
+                image: null
+            },
+            {
+                question: "14. The process of joining two metal pieces by melting and flowing a filler metal (with a lower melting point than the base metals) into the joint is called:",
+                options: [
+                    "A) Welding",
+                    "B) Brazing or Soldering",
+                    "C) Riveting",
+                    "D) Adhesive Bonding"
+                ],
+                correctAnswer: 1, // Brazing/Soldering fit this description best
+                image: null
+            },
+            // Machine Design & Vibrations
+            {
+                question: "15. A gear train with an overall velocity ratio greater than 1 provides:",
+                options: [
+                    "A) Speed reduction and torque increase",
+                    "B) Speed increase and torque reduction",
+                    "C) No change in speed or torque",
+                    "D) Only a change in direction"
+                ],
+                correctAnswer: 0, // Velocity Ratio = Input Speed / Output Speed. VR > 1 means Output Speed < Input Speed.
+                image: null
+            },
+            {
+                question: "16. The purpose of lubrication in bearings is primarily to:",
+                options: [
+                    "A) Increase the operating temperature",
+                    "B) Reduce friction and wear between moving surfaces",
+                    "C) Increase the load capacity",
+                    "D) Prevent corrosion only"
+                ],
+                correctAnswer: 1,
+                image: null
+            },
+            {
+                question: "17. Resonance in a mechanical system occurs when the forcing frequency is close to the system's:",
+                options: [
+                    "A) Damping coefficient",
+                    "B) Stiffness",
+                    "C) Mass",
+                    "D) Natural frequency"
+                ],
+                correctAnswer: 3,
+                image: null
+            },
+            // Heat Transfer & General Concepts
+            {
+                question: "18. Heat transfer through a solid material primarily occurs via:",
+                options: [
+                    "A) Conduction",
+                    "B) Convection",
+                    "C) Radiation",
+                    "D) Advection"
+                ],
+                correctAnswer: 0,
+                image: null
+            },
+            {
+                question: "19. In the context of engineering drawings, 'orthographic projection' typically shows:",
+                options: [
+                    "A) A single, 3D perspective view",
+                    "B) Multiple 2D views of an object (e.g., front, top, side)",
+                    "C) An exploded view of an assembly",
+                    "D) A cross-sectional view only"
+                ],
+                correctAnswer: 1,
+                image: null
+            },
+            {
+                question: "20. A factor of safety (FoS) in design is used to:",
+                options: [
+                    "A) Calculate the exact failure point",
+                    "B) Reduce the weight of the component",
+                    "C) Account for uncertainties in loads, material properties, and analysis",
+                    "D) Determine the manufacturing cost"
+                ],
+                correctAnswer: 2,
+                image: null
+            }
+        ];
+
+        // --- DOM Elements ---
+        const userDetailsPage = document.getElementById('userDetailsPage');
+        const quizPage = document.getElementById('quizPage');
+        const resultsPage = document.getElementById('resultsPage');
+        const userDetailsForm = document.getElementById('userDetailsForm');
+        const quizForm = document.getElementById('quizForm');
+        const questionsContainer = document.getElementById('questionsContainer');
+        const resultsContainer = document.getElementById('results');
+        const timerDisplay = document.getElementById('timer');
+        const submitButton = document.getElementById('submitButton');
+        const submissionStatus = document.getElementById('submissionStatus');
+        const userNameInput = document.getElementById('userName');
+        const userEmailInput = document.getElementById('userEmail');
+        const userPhoneInput = document.getElementById('userPhone');
+        const userNameError = document.getElementById('userNameError');
+        const userEmailError = document.getElementById('userEmailError');
+        const userPhoneError = document.getElementById('userPhoneError');
+        const displayUserName = document.getElementById('displayUserName');
+        const displayUserEmail = document.getElementById('displayUserEmail');
+        const testDurationDisplay = document.getElementById('testDurationDisplay');
+
+        // --- State ---
+        let userAnswers = {};
+        let userDetails = {};
+        let timerInterval = null;
+        let quizEndTime = null;
+        let timeTaken = 0;
+        let quizSubmitted = false;
+
+        // --- Functions ---
+
+        function showPage(pageId) {
+             document.querySelectorAll('.page-section').forEach(page => {
+                 page.classList.remove('active');
+                 page.classList.add('hidden');
+             });
+             const pageToShow = document.getElementById(pageId);
+             if (pageToShow) {
+                 pageToShow.classList.remove('hidden');
+                 pageToShow.classList.add('active');
+             } else {
+                 console.error("Page not found:", pageId);
+             }
+             window.scrollTo(0, 0);
+         }
+
+        function clearErrors() {
+             userNameError.classList.add('hidden');
+             userEmailError.classList.add('hidden');
+             userPhoneError.classList.add('hidden');
+             userNameInput.classList.remove('border-red-500');
+             userEmailInput.classList.remove('border-red-500');
+             userPhoneInput.classList.remove('border-red-500');
+             submissionStatus.textContent = '';
+         }
+
+        function validateUserDetails() {
+            clearErrors();
+            let isValid = true;
+            const name = userNameInput.value.trim();
+            const email = userEmailInput.value.trim();
+            const phone = userPhoneInput.value.trim();
+
+            if (!name) {
+                userNameError.textContent = 'Name is required.';
+                userNameError.classList.remove('hidden');
+                userNameInput.classList.add('border-red-500');
+                isValid = false;
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email) {
+                 userEmailError.textContent = 'Email is required.';
+                 userEmailError.classList.remove('hidden');
+                 userEmailInput.classList.add('border-red-500');
+                 isValid = false;
+             } else if (!emailRegex.test(email)) {
+                 userEmailError.textContent = 'Please enter a valid email address.';
+                 userEmailError.classList.remove('hidden');
+                 userEmailInput.classList.add('border-red-500');
+                 isValid = false;
+             }
+            if (!phone) {
+                 userPhoneError.textContent = 'Phone number is required.';
+                 userPhoneError.classList.remove('hidden');
+                 userPhoneInput.classList.add('border-red-500');
+                 isValid = false;
+             }
+            return isValid;
+        }
+
+        function handleUserDetailsSubmit(event) {
+            event.preventDefault();
+            if (!validateUserDetails()) return;
+
+            userDetails = {
+                name: userNameInput.value.trim(),
+                email: userEmailInput.value.trim(),
+                phone: userPhoneInput.value.trim()
+            };
+            displayUserName.textContent = userDetails.name;
+            displayUserEmail.textContent = userDetails.email;
+            localStorage.setItem('quizUserDetails', JSON.stringify(userDetails));
+            localStorage.setItem('quizUserAnswers', JSON.stringify({}));
+            startQuiz();
+        }
+
+        function startQuiz() {
+            renderQuestions();
+            startTimer();
+            showPage('quizPage');
+        }
+
+        /**
+         * Renders questions, options, and images (if available).
+         */
+        function renderQuestions() {
+            questionsContainer.innerHTML = '';
+            const savedAnswers = JSON.parse(localStorage.getItem('quizUserAnswers') || '{}');
+            userAnswers = savedAnswers;
+
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                questionDiv.id = `question-${index}`;
+
+                // Add Question Text
+                const questionText = document.createElement('div');
+                questionText.className = 'question-text';
+                // Use innerHTML in case question text contains simple formatting like <b>
+                // Be cautious if questions come from untrusted sources.
+                questionText.innerHTML = q.question;
+                questionDiv.appendChild(questionText);
+
+                // Add Image if available
+                if (q.image && q.image.trim() !== "") { // Check if image URL is not null or empty
+                    const imgElement = document.createElement('img');
+                    imgElement.src = q.image;
+                    imgElement.alt = `Image for question ${index + 1}`;
+                    imgElement.className = 'question-image'; // Apply styling
+                    // Add error handling for broken image links
+                    imgElement.onerror = function() {
+                        this.alt = `Image for question ${index + 1} failed to load.`;
+                        this.style.display = 'none'; // Hide broken image icon
+                        // Optionally display a placeholder or message
+                        const errorMsg = document.createElement('p');
+                        errorMsg.textContent = '[Image failed to load]';
+                        errorMsg.className = 'text-red-500 text-sm my-4';
+                        questionDiv.insertBefore(errorMsg, optionsDiv); // Insert before options
+                    };
+                    questionDiv.appendChild(imgElement);
+                }
+
+
+                // Add Options
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options-container';
+
+                q.options.forEach((option, optionIndex) => {
+                    const optionId = `q${index}_option${optionIndex}`;
+                    const radioInput = document.createElement('input');
+                    radioInput.type = 'radio';
+                    radioInput.name = `question${index}`;
+                    radioInput.value = optionIndex;
+                    radioInput.id = optionId;
+                    radioInput.className = 'option-radio';
+                    radioInput.addEventListener('change', () => handleAnswerSelection(index, optionIndex));
+
+                    if (savedAnswers[index] === optionIndex) {
+                         radioInput.checked = true;
+                    }
+
+                    const optionLabel = document.createElement('label');
+                    optionLabel.htmlFor = optionId;
+                    optionLabel.textContent = option;
+                    optionLabel.className = 'option-label';
+                    optionLabel.id = `label-${optionId}`;
+
+                    optionsDiv.appendChild(radioInput);
+                    optionsDiv.appendChild(optionLabel);
+                });
+
+                questionDiv.appendChild(optionsDiv);
+                questionsContainer.appendChild(questionDiv);
+            });
+        }
+
+
+        function handleAnswerSelection(questionIndex, optionIndex) {
+            if (quizSubmitted) return;
+            userAnswers[questionIndex] = optionIndex;
+            localStorage.setItem('quizUserAnswers', JSON.stringify(userAnswers));
+        }
+
+        function startTimer() {
+            const savedEndTime = localStorage.getItem('quizEndTime');
+            const now = Date.now();
+
+            if (savedEndTime && parseInt(savedEndTime) > now) {
+                quizEndTime = parseInt(savedEndTime);
+            } else {
+                quizEndTime = now + QUIZ_DURATION_MINUTES * 60 * 1000;
+                localStorage.setItem('quizEndTime', quizEndTime);
+            }
+
+            updateTimerDisplay();
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                const remaining = quizEndTime - Date.now();
+                if (remaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = "Time Expired!";
+                    timerDisplay.classList.add('timer-expired');
+                    forceSubmitQuiz();
+                } else {
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+             const remaining = Math.max(0, quizEndTime - Date.now());
+             const minutes = Math.floor((remaining / 1000 / 60) % 60);
+             const seconds = Math.floor((remaining / 1000) % 60);
+             timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+             timerDisplay.classList.remove('timer-expired');
+        }
+
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                if (userAnswers.hasOwnProperty(index) && userAnswers[index] === q.correctAnswer) {
+                    score++;
+                }
+            });
+            return score;
+        }
+
+         function generateDetailedResultsCSV() {
+            const results = [];
+            for (let i = 0; i < questions.length; i++) {
+                if (!userAnswers.hasOwnProperty(i)) {
+                    results.push("U"); // Unanswered
+                } else if (userAnswers[i] === questions[i].correctAnswer) {
+                    results.push("C"); // Correct
+                } else {
+                    results.push("I"); // Incorrect
+                }
+            }
+            return results.join(',');
+         }
+
+        function calculateTimeTaken() {
+             const endTime = Date.now();
+             const startTime = quizEndTime - (QUIZ_DURATION_MINUTES * 60 * 1000);
+             timeTaken = Math.round((endTime - startTime) / 1000);
+             timeTaken = Math.min(timeTaken, QUIZ_DURATION_MINUTES * 60);
+             timeTaken = Math.max(0, timeTaken);
+        }
+
+        function handleQuizSubmit(event) {
+            if (event) event.preventDefault();
+            if (quizSubmitted) return;
+            forceSubmitQuiz();
+        }
+
+        function forceSubmitQuiz() {
+             if (quizSubmitted) return;
+             quizSubmitted = true;
+             clearInterval(timerInterval);
+             calculateTimeTaken();
+             const score = calculateScore();
+             const detailedResultsCSV = generateDetailedResultsCSV();
+
+             submitButton.disabled = true;
+             submitButton.textContent = 'Submitting...';
+             document.querySelectorAll('.option-radio').forEach(radio => radio.disabled = true);
+
+             const formData = {
+                 ...userDetails,
+                 timestamp: new Date().toISOString(),
+                 score: score,
+                 timeTaken: timeTaken,
+                 results: detailedResultsCSV
+             };
+
+             sendDataToGoogleSheet(formData);
+
+             showPage('resultsPage');
+             resultsContainer.textContent = `Calculating results...`;
+
+             setTimeout(() => {
+                 resultsContainer.innerHTML = `Your Score: <strong class="text-xl">${score}</strong> / ${questions.length}`;
+             }, 500);
+
+             localStorage.removeItem('quizUserDetails');
+             localStorage.removeItem('quizUserAnswers');
+             localStorage.removeItem('quizEndTime');
+        }
+
+        function sendDataToGoogleSheet(data) {
+            submissionStatus.textContent = '';
+            if (!SCRIPT_URL || SCRIPT_URL === "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
+                console.error("Google Apps Script URL is not configured!");
+                submissionStatus.textContent = "Error: Could not submit results (URL missing).";
+                submissionStatus.style.color = 'red';
+                return;
+            }
+            const queryParams = new URLSearchParams(data);
+            const urlWithParams = `${SCRIPT_URL}?${queryParams.toString()}`;
+            console.log("Submitting to:", urlWithParams);
+
+            fetch(urlWithParams, { method: "GET", mode: "no-cors" })
+            .then(() => {
+                console.log("Data submission initiated (no-cors).");
+                submissionStatus.textContent = "Results submitted successfully.";
+                submissionStatus.style.color = 'green';
+            })
+            .catch(error => {
+                console.error("Error submitting data:", error);
+                submissionStatus.textContent = `Error: Could not submit results (${error.message}).`;
+                 submissionStatus.style.color = 'red';
+            });
+        }
+
+        function initializeQuizState() {
+             const savedDetails = localStorage.getItem('quizUserDetails');
+             const savedEndTime = localStorage.getItem('quizEndTime');
+             const now = Date.now();
+             testDurationDisplay.textContent = QUIZ_DURATION_MINUTES;
+
+             if (savedDetails && savedEndTime && parseInt(savedEndTime) > now) {
+                 userDetails = JSON.parse(savedDetails);
+                 console.log("Resuming quiz for:", userDetails.email);
+                 displayUserName.textContent = userDetails.name;
+                 displayUserEmail.textContent = userDetails.email;
+                 startQuiz();
+             } else {
+                 showPage('userDetailsPage');
+                 localStorage.removeItem('quizUserDetails');
+                 localStorage.removeItem('quizUserAnswers');
+                 localStorage.removeItem('quizEndTime');
+             }
+        }
+
+        // --- Event Listeners ---
+        userDetailsForm.addEventListener('submit', handleUserDetailsSubmit);
+        quizForm.addEventListener('submit', handleQuizSubmit);
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', initializeQuizState);
+
+    </script>
+
 </body>
 </html>
