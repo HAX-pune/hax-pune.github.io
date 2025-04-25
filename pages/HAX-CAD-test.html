@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online CAD Test</title>
+    <title>HAX CAD Test</title>
+    <link rel="icon" type="image/x-icon" href="/pages/img/logo/hax-icon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Basic styles for page transitions */
@@ -54,7 +55,7 @@
             <h1 class="text-xl font-bold mb-6 text-gray-800">HAX CAD Test</h1>
             
             <p class="text-gray-600 text-sm mb-6" id="test-description">
-                Welcome to the HAX CAD Test. Please fill in your details below to start the test. You will have 20 minutes to complete the test once you start.
+                Welcome to the CAD Test. This test is design to test your CAD skills, We prefer that you use Solidworks for this test but any other CAD package is fine too. <br><br> Please fill in your details below to start the test. You will have <span class="text-red-600 font-bold">30 minutes</span> to complete the test once you start.
                 </p>
             <form id="user-details-form" class="space-y-4">
                 <div>
@@ -72,7 +73,7 @@
                     <input type="tel" id="userPhone" name="userPhone" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter your phone number">
                      <p id="userPhoneError" class="error-message text-left"></p>
                 
-                <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out padding-2 mt-4">
                     Start Test
                 </button>
             </form>
@@ -132,7 +133,7 @@
         let userDetails = {}; // To store user name, email, phone
         let timerInterval; // To store the interval ID for the timer
         let timeLeft; // Global variable to track remaining time
-        const totalTime = 20 * 60; // 20 minutes in seconds
+        const totalTime = 30 * 60; // 30 minutes in seconds
         const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKr0UVkGyO9G2yt7Clh-TlSUjsm7Rjo7SUSYNnQXqb8lSNK2nRvQZeh-_1-OZwcFjC/exec'; // Replace with your URL
 
         const images = [
