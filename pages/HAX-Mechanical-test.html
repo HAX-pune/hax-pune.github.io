@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,166 +9,289 @@
     <style>
         /* Styles adapted from the CAD Test example */
         body {
-            font-family: 'Inter', sans-serif; /* Use Inter font */
-            background-color: #f3f4f6; /* bg-gray-100 */
+            font-family: 'Inter', sans-serif;
+            /* Use Inter font */
+            background-color: #f3f4f6;
+            /* bg-gray-100 */
         }
+
         .page-section {
-            display: none; /* Hide all pages by default */
-            min-height: 80vh; /* Ensure pages take significant height */
+            display: none;
+            /* Hide all pages by default */
+            min-height: 80vh;
+            /* Ensure pages take significant height */
         }
+
         .page-section.active {
-            display: flex; /* Show the active page */
+            display: flex;
+            /* Show the active page */
             flex-direction: column;
-            justify-content: center; /* Center content vertically */
-            align-items: center; /* Center content horizontally */
+            justify-content: center;
+            /* Center content vertically */
+            align-items: center;
+            /* Center content horizontally */
         }
+
         .content-container {
-             background-color: #ffffff; /* bg-white */
-             padding: 2rem; /* p-8 */
-             border-radius: 0.5rem; /* rounded-lg */
-             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
-             width: 100%;
-             max-width: 48rem; /* max-w-3xl */
-             margin: 1rem auto; /* Center the box */
-         }
-         #userDetailsPage .content-container {
-              max-width: 32rem; /* max-w-md */
-         }
+            background-color: #ffffff;
+            /* bg-white */
+            padding: 2rem;
+            /* p-8 */
+            border-radius: 0.5rem;
+            /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            /* shadow-md */
+            width: 100%;
+            max-width: 48rem;
+            /* max-w-3xl */
+            margin: 1rem auto;
+            /* Center the box */
+        }
+
+        #userDetailsPage .content-container {
+            max-width: 32rem;
+            /* max-w-md */
+        }
+
         .input-field {
-            margin-top: 0.25rem; /* mt-1 */
+            margin-top: 0.25rem;
+            /* mt-1 */
             display: block;
             width: 100%;
-            padding: 0.5rem 0.75rem; /* px-3 py-2 */
-            border: 1px solid #d1d5db; /* border-gray-300 */
-            border-radius: 0.375rem; /* rounded-md */
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
-            font-size: 0.875rem; /* sm:text-sm */
+            padding: 0.5rem 0.75rem;
+            /* px-3 py-2 */
+            border: 1px solid #d1d5db;
+            /* border-gray-300 */
+            border-radius: 0.375rem;
+            /* rounded-md */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            /* shadow-sm */
+            font-size: 0.875rem;
+            /* sm:text-sm */
             transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
+
         .input-field:focus {
             outline: none;
-            border-color: #4f46e5; /* focus:border-indigo-500 */
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3); /* focus:ring-indigo-500 equivalent */
+            border-color: #4f46e5;
+            /* focus:border-indigo-500 */
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+            /* focus:ring-indigo-500 equivalent */
         }
-         .error-message {
-            color: #dc2626; /* red-600 */
-            font-size: 0.875rem; /* text-sm */
-            margin-top: 0.25rem; /* mt-1 */
-            display: block; /* Ensure it takes space */
-            text-align: left; /* Match CAD test error alignment */
-            min-height: 1.25rem; /* Ensure space even when empty */
-         }
-         .error-message.hidden { display: none; }
-         .input-field.border-red-500 { border-color: #ef4444; }
+
+        .error-message {
+            color: #dc2626;
+            /* red-600 */
+            font-size: 0.875rem;
+            /* text-sm */
+            margin-top: 0.25rem;
+            /* mt-1 */
+            display: block;
+            /* Ensure it takes space */
+            text-align: left;
+            /* Match CAD test error alignment */
+            min-height: 1.25rem;
+            /* Ensure space even when empty */
+        }
+
+        .error-message.hidden {
+            display: none;
+        }
+
+        .input-field.border-red-500 {
+            border-color: #ef4444;
+        }
+
         .question-container {
-            background-color: #f9fafb; /* bg-gray-50 */
-            border: 1px solid #e5e7eb; /* border-gray-200 */
-            border-radius: 0.375rem; /* rounded-md */
-            padding: 1.5rem; /* p-6 */
-            margin-bottom: 1.5rem; /* mb-6 */
+            background-color: #f9fafb;
+            /* bg-gray-50 */
+            border: 1px solid #e5e7eb;
+            /* border-gray-200 */
+            border-radius: 0.375rem;
+            /* rounded-md */
+            padding: 1.5rem;
+            /* p-6 */
+            margin-bottom: 1.5rem;
+            /* mb-6 */
         }
+
         .question-text {
-            font-weight: 600; /* font-semibold */
-            margin-bottom: 1rem; /* mb-4 */
-            color: #374151; /* text-gray-700 */
+            font-weight: 600;
+            /* font-semibold */
+            margin-bottom: 1rem;
+            /* mb-4 */
+            color: #374151;
+            /* text-gray-700 */
         }
+
         /* Style for question images */
         .question-image {
-             display: block;
-             max-width: 100%; /* Ensure image fits container */
-             height: auto; /* Maintain aspect ratio */
-             margin-top: 1rem; /* Add space above image */
-             margin-bottom: 1rem; /* Add space below image */
-             border: 1px solid #e5e7eb; /* Subtle border */
-             border-radius: 0.375rem; /* Rounded corners */
+            display: block;
+            max-width: 100%;
+            /* Ensure image fits container */
+            height: auto;
+            /* Maintain aspect ratio */
+            margin-top: 1rem;
+            /* Add space above image */
+            margin-bottom: 1rem;
+            /* Add space below image */
+            border: 1px solid #e5e7eb;
+            /* Subtle border */
+            border-radius: 0.375rem;
+            /* Rounded corners */
         }
+
         .option-label {
             display: block;
-            margin-bottom: 0.75rem; /* mb-3 */
-            padding: 0.75rem; /* p-3 */
-            border-radius: 0.375rem; /* rounded-md */
-            background-color: #ffffff; /* bg-white */
-            border: 1px solid #d1d5db; /* border-gray-300 */
+            margin-bottom: 0.75rem;
+            /* mb-3 */
+            padding: 0.75rem;
+            /* p-3 */
+            border-radius: 0.375rem;
+            /* rounded-md */
+            background-color: #ffffff;
+            /* bg-white */
+            border: 1px solid #d1d5db;
+            /* border-gray-300 */
             cursor: pointer;
             transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-            font-size: 0.875rem; /* text-sm */
-            color: #374151; /* text-gray-700 */
+            font-size: 0.875rem;
+            /* text-sm */
+            color: #374151;
+            /* text-gray-700 */
         }
-        .option-label:hover { background-color: #f3f4f6; }
-        input[type="radio"]:checked + .option-label {
-            background-color: #e0e7ff; /* bg-indigo-100 */
-            border-color: #818cf8; /* border-indigo-400 */
-            color: #3730a3; /* text-indigo-800 */
-            font-weight: 500; /* font-medium */
+
+        .option-label:hover {
+            background-color: #f3f4f6;
         }
-        input[type="radio"] { display: none; }
+
+        input[type="radio"]:checked+.option-label {
+            background-color: #e0e7ff;
+            /* bg-indigo-100 */
+            border-color: #818cf8;
+            /* border-indigo-400 */
+            color: #3730a3;
+            /* text-indigo-800 */
+            font-weight: 500;
+            /* font-medium */
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
         .action-button {
-             display: inline-flex;
-             justify-content: center;
-             width: 100%; /* w-full */
-             padding: 0.5rem 1rem; /* py-2 px-4 */
-             border: 1px solid transparent;
-             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
-             font-size: 0.875rem; /* text-sm */
-             font-weight: 500; /* font-medium */
-             border-radius: 0.375rem; /* rounded-md */
-             color: #ffffff; /* text-white */
-             background-color: #4f46e5; /* bg-indigo-600 */
-             cursor: pointer;
-             transition: background-color 0.15s ease-in-out;
+            display: inline-flex;
+            justify-content: center;
+            width: 100%;
+            /* w-full */
+            padding: 0.5rem 1rem;
+            /* py-2 px-4 */
+            border: 1px solid transparent;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            /* shadow-sm */
+            font-size: 0.875rem;
+            /* text-sm */
+            font-weight: 500;
+            /* font-medium */
+            border-radius: 0.375rem;
+            /* rounded-md */
+            color: #ffffff;
+            /* text-white */
+            background-color: #4f46e5;
+            /* bg-indigo-600 */
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out;
         }
-        .action-button:hover { background-color: #4338ca; }
-         .action-button:focus {
-             outline: none;
-             box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-         }
-         .action-button:disabled {
+
+        .action-button:hover {
+            background-color: #4338ca;
+        }
+
+        .action-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .action-button:disabled {
             background-color: #9ca3af;
             cursor: not-allowed;
             opacity: 0.7;
         }
+
         .timer-container {
-             font-size: 1.5rem; /* text-2xl */
-             font-weight: 600; /* font-semibold */
-             color: #dc2626; /* text-red-600 */
-             text-align: right; /* Align to the right */
+            font-size: 1.5rem;
+            /* text-2xl */
+            font-weight: 600;
+            /* font-semibold */
+            color: #dc2626;
+            /* text-red-600 */
+            text-align: right;
+            /* Align to the right */
         }
-         .timer-expired { color: #dc2626; font-weight: bold; }
+
+        .timer-expired {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
         .results-container {
-            margin-top: 2rem; /* mt-8 */
-            padding: 2rem; /* p-8 */
-            background-color: #ffffff; /* bg-white */
-            border-radius: 0.5rem; /* rounded-lg */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            margin-top: 2rem;
+            /* mt-8 */
+            padding: 2rem;
+            /* p-8 */
+            background-color: #ffffff;
+            /* bg-white */
+            border-radius: 0.5rem;
+            /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            /* shadow-md */
             text-align: center;
-            font-size: 1.125rem; /* text-lg */
-            font-weight: 500; /* font-medium */
-            color: #1f2937; /* text-gray-800 */
+            font-size: 1.125rem;
+            /* text-lg */
+            font-weight: 500;
+            /* font-medium */
+            color: #1f2937;
+            /* text-gray-800 */
         }
-        .diagram-svg { /* Kept for potential future use, but not used in current questions */
-             display: block;
-             margin: 1rem auto;
-             max-width: 300px;
-             border: 1px solid #ccc;
-             background-color: #fff;
-             padding: 10px;
-             border-radius: 4px;
+
+        .diagram-svg {
+            /* Kept for potential future use, but not used in current questions */
+            display: block;
+            margin: 1rem auto;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 4px;
         }
-        .hidden { display: none; }
+
+        .hidden {
+            display: none;
+        }
+
         label {
-             display: block;
-             text-align: left;
-             font-size: 0.875rem; /* text-sm */
-             font-weight: 500; /* font-medium */
-             color: #374151; /* text-gray-700 */
-             margin-bottom: 0.25rem; /* mb-1 */
+            display: block;
+            text-align: left;
+            font-size: 0.875rem;
+            /* text-sm */
+            font-weight: 500;
+            /* font-medium */
+            color: #374151;
+            /* text-gray-700 */
+            margin-bottom: 0.25rem;
+            /* mb-1 */
         }
-        .text-center { text-align: center; }
+
+        .text-center {
+            text-align: center;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100">
 
     <div id="userDetailsPage" class="page-section">
@@ -175,24 +299,29 @@
             <div id="logo" class="mb-4">
                 <img src="./img/logo/LOGO_HAX_GREEN.png" alt="Logo" class="h-12 mx-auto">
             </div>
-            <h1 class="text-xl md:text-2xl font-bold text-center text-gray-800 mb-6">Mechanical Engineering Aptitude Test</h1>
+            <h1 class="text-xl md:text-2xl font-bold text-center text-gray-800 mb-6">Mechanical Engineering Aptitude
+                Test</h1>
             <p class="text-center text-gray-600 text-sm mb-6">
-                Please fill in your details below to start the test. You will have <span id="testDurationDisplay">20</span> minutes to complete the test once you start.
+                Please fill in your details below to start the test. You will have <span
+                    id="testDurationDisplay">20</span> minutes to complete the test once you start.
             </p>
             <form id="userDetailsForm" class="space-y-4">
                 <div>
                     <label for="userName">Full Name:</label>
-                    <input type="text" id="userName" name="userName" required class="input-field" placeholder="Enter your name">
+                    <input type="text" id="userName" name="userName" required class="input-field"
+                        placeholder="Enter your name">
                     <span id="userNameError" class="error-message hidden">Name is required.</span>
                 </div>
                 <div>
                     <label for="userEmail">Email Address:</label>
-                    <input type="email" id="userEmail" name="userEmail" required class="input-field" placeholder="Enter your email">
+                    <input type="email" id="userEmail" name="userEmail" required class="input-field"
+                        placeholder="Enter your email">
                     <span id="userEmailError" class="error-message hidden">Please enter a valid email address.</span>
                 </div>
                 <div>
                     <label for="userPhone">Phone Number:</label>
-                    <input type="tel" id="userPhone" name="userPhone" required class="input-field" placeholder="Enter your phone number">
+                    <input type="tel" id="userPhone" name="userPhone" required class="input-field"
+                        placeholder="Enter your phone number">
                     <span id="userPhoneError" class="error-message hidden">Phone number is required.</span>
                 </div>
                 <div class="pt-2">
@@ -203,19 +332,19 @@
     </div>
 
     <div id="quizPage" class="page-section hidden">
-         <div class="content-container">
-             <div class="flex justify-between items-center mb-4 border-b border-gray-200 pb-4">
+        <div class="content-container">
+            <div class="flex justify-between items-center mb-4 border-b border-gray-200 pb-4">
                 <h1 class="text-xl font-bold text-gray-800">Test In Progress</h1>
                 <div id="timer" class="timer-container">20:00</div>
-             </div>
-             <div class="mb-6 p-4 bg-gray-50 rounded-md border border-gray-200 text-sm text-gray-600">
-                 <p><strong>Name:</strong> <span id="displayUserName"></span></p>
-                 <p><strong>Email:</strong> <span id="displayUserEmail"></span></p>
-             </div>
+            </div>
+            <div class="mb-6 p-4 bg-gray-50 rounded-md border border-gray-200 text-sm text-gray-600">
+                <p><strong>Name:</strong> <span id="displayUserName"></span></p>
+                <p><strong>Email:</strong> <span id="displayUserEmail"></span></p>
+            </div>
 
             <form id="quizForm">
                 <div id="questionsContainer">
-                    </div>
+                </div>
                 <div class="text-center mt-8">
                     <button type="submit" id="submitButton" class="action-button w-auto px-6">Submit Test</button>
                 </div>
@@ -224,252 +353,483 @@
     </div>
 
     <div id="resultsPage" class="page-section hidden">
-         <div class="content-container max-w-md">
-             <svg class="mx-auto h-12 w-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-             </svg>
-             <h1 class="text-2xl font-bold mt-4 mb-4 text-center text-gray-800">Test Submitted!</h1>
+        <div class="content-container max-w-md">
+            <svg class="mx-auto h-12 w-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h1 class="text-2xl font-bold mt-4 mb-4 text-center text-gray-800">Test Submitted!</h1>
             <div id="results" class="results-container shadow-none border-none bg-transparent p-0 mt-0 text-center">
-                 Calculating results...
+                Calculating results...
             </div>
-             <p class="text-center text-gray-600 mt-4 text-sm">Thank you for completing the test. Your results have been recorded.</p>
-             <div id="submissionStatus" class="text-center text-sm mt-2"></div>
+            <p class="text-center text-gray-600 mt-4 text-sm">Thank you for completing the test. Your results have been
+                recorded.</p>
+            <div id="submissionStatus" class="text-center text-sm mt-2"></div>
         </div>
     </div>
 
     <script>
         // --- Configuration ---
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6BFW02H1NGBVQR0LqgFQCMZ8kzZ9zHnEpu98o0qYX2Jjerek4n6QiNB7twiPfSy5fdg/exec"; // !!! IMPORTANT: Replace !!!
-        const QUIZ_DURATION_MINUTES = 20;
+        const QUIZ_DURATION_MINUTES = 30;
 
-        // --- Quiz Data ---
+        // --- HAX Engineering Intern Assessment Test Data ---
+
         const questions = [
-            // Thermodynamics & Fluid Mechanics
+            // Section 1: Logical Reasoning
             {
-                question: "1. The First Law of Thermodynamics is essentially a statement of:",
+                question: "1. Pattern Recognition: Complete the sequence: 2, 5, 11, 23, __",
                 options: [
-                    "A) Conservation of mass",
-                    "B) Conservation of energy",
-                    "C) Increase of entropy",
-                    "D) Conservation of momentum"
+                    "A) 45",
+                    "B) 47", // Correct: Multiply by 2, add 1
+                    "C) 46",
+                    "D) 48"
                 ],
-                correctAnswer: 1,
-                image: null // Add image URL here if available
-            },
-            {
-                question: "2. For an ideal gas undergoing an isothermal process, which property remains constant?",
-                options: [
-                    "A) Pressure",
-                    "B) Volume",
-                    "C) Temperature",
-                    "D) Internal Energy" // For ideal gas, internal energy depends only on T
-                ],
-                correctAnswer: 2, // Temperature is constant by definition
+                correctAnswer: 1, // Index of 'B) 47'
                 image: null
             },
             {
-                question: "3. The efficiency of a Carnot engine operating between two temperatures T_H (hot) and T_C (cold) is given by:",
+                question: "2. Spatial Reasoning: Imagine a standard six-sided die. If the face '1' is opposite '6', '2' is opposite '5', what face is opposite '3'?",
                 options: [
-                    "A) 1 - (T_C / T_H)",
-                    "B) (T_H / T_C) - 1",
-                    "C) 1 - (T_H / T_C)",
-                    "D) T_H / T_C"
+                    "A) 1",
+                    "B) 2",
+                    "C) 4", // Correct
+                    "D) 5"
                 ],
-                correctAnswer: 0, // Temperatures must be absolute (Kelvin or Rankine)
+                correctAnswer: 2, // Index of 'C) 4'
                 image: null
             },
             {
-                question: "4. Viscosity in a fluid is primarily caused by:",
+                question: "3. Analogy: Gear is to Rotation as Piston is to _______.",
                 options: [
-                    "A) Gravitational forces",
-                    "B) Pressure differences",
-                    "C) Cohesive forces between molecules and molecular momentum exchange",
-                    "D) Surface tension"
+                    "A) Cylinder",
+                    "B) Engine",
+                    "C) Reciprocation", // Correct
+                    "D) Crankshaft"
                 ],
-                correctAnswer: 2,
+                correctAnswer: 2, // Index of 'C) Reciprocation'
                 image: null
             },
             {
-                question: "5. According to Archimedes' principle, the buoyant force on a submerged object is equal to:",
+                question: "4. Deductive Logic: All widgets are gizmos. Some gadgets are widgets. Which conclusion *must* be true?",
                 options: [
-                    "A) The weight of the object",
-                    "B) The volume of the object",
-                    "C) The weight of the fluid displaced by the object",
-                    "D) The pressure at the bottom of the object"
+                    "A) All gadgets are gizmos.",
+                    "B) Some gadgets are gizmos.", // Correct
+                    "C) No gizmos are gadgets.",
+                    "D) All gizmos are widgets."
                 ],
-                correctAnswer: 2,
-                image: null
-            },
-            // Mechanics of Materials & Statics/Dynamics
-            {
-                question: "6. Stress is defined as:",
-                options: [
-                    "A) Force per unit length",
-                    "B) Force per unit area",
-                    "C) Deformation per unit length",
-                    "D) Mass per unit volume"
-                ],
-                correctAnswer: 1,
+                correctAnswer: 1, // Index of 'B) Some gadgets are gizmos.'
                 image: null
             },
             {
-                question: "7. Hooke's Law relates which two quantities within the elastic limit of a material?",
+                question: "5. Spatial Visualization: If the 2D net below is folded into a cube, which face will be opposite face 'C'?\n```\n  A\nB C D\n  E\n  F\n```",
                 options: [
-                    "A) Stress and Temperature",
-                    "B) Force and Velocity",
-                    "C) Stress and Strain",
-                    "D) Mass and Acceleration"
+                    "A) A",
+                    "B) B",
+                    "C) E", // Correct
+                    "D) F"
                 ],
-                correctAnswer: 2,
+                correctAnswer: 2, // Index of 'C) E'
+                image: null // Note: The ASCII diagram is included in the question text.
+            },
+            {
+                question: "6. Number Series: Find the missing number: 81, 27, 9, 3, 1, __",
+                options: [
+                    "A) 0",
+                    "B) 1/3", // Correct: Divide by 3
+                    "C) -1",
+                    "D) 1/9"
+                ],
+                correctAnswer: 1, // Index of 'B) 1/3'
                 image: null
             },
             {
-                question: "8. For a beam subjected to pure bending, the neutral axis is the location where:",
+                question: "7. Logical Deduction: Statement 1: If the motor is running, the light is on. Statement 2: The light is off. What can you conclude?",
                 options: [
-                    "A) Shear stress is maximum",
-                    "B) Bending stress is maximum",
-                    "C) Bending stress is zero",
-                    "D) The material yields"
+                    "A) The motor is running.",
+                    "B) The motor is not running.", // Correct
+                    "C) The motor might be running.",
+                    "D) The light switch is broken."
                 ],
-                correctAnswer: 2,
+                correctAnswer: 1, // Index of 'B) The motor is not running.'
                 image: null
             },
             {
-                question: "9. A truss structure is primarily designed to carry loads through members experiencing:",
+                question: "8. Relationship Analysis: If A > B, C < B, and D > A, which statement is definitely true?",
                 options: [
-                    "A) Bending moments",
-                    "B) Torsional shear stress",
-                    "C) Axial tension or compression",
-                    "D) Transverse shear stress"
+                    "A) B > D",
+                    "B) C > A",
+                    "C) D > C", // Correct
+                    "D) A = C"
                 ],
-                correctAnswer: 2,
+                correctAnswer: 2, // Index of 'C) D > C'
+                image: null
+            },
+            // Section 2: Critical Thinking & Problem Solving
+            {
+                question: "9. Mechanical Advantage: In a simple lever system (Class 1), if the effort arm is twice as long as the load arm, what is the ideal mechanical advantage?",
+                options: [
+                    "A) 0.5",
+                    "B) 1",
+                    "C) 2", // Correct
+                    "D) 4"
+                ],
+                correctAnswer: 2, // Index of 'C) 2'
                 image: null
             },
             {
-                question: "10. Newton's Second Law of Motion is mathematically expressed as:",
+                question: "10. Stress & Strain: Two wires, A and B, are made of the same material and have the same length. Wire A has twice the diameter of wire B. If the same tensile force is applied to both, how does the stress in A compare to the stress in B?",
                 options: [
-                    "A) F = ma (Force = mass x acceleration)",
-                    "B) P = mv (Momentum = mass x velocity)",
-                    "C) W = Fd (Work = force x distance)",
-                    "D) E = mc^2"
+                    "A) Stress in A is twice the stress in B.",
+                    "B) Stress in A is half the stress in B.",
+                    "C) Stress in A is one-quarter the stress in B.", // Correct
+                    "D) Stress in A is four times the stress in B."
                 ],
-                correctAnswer: 0,
-                image: null
-            },
-            // Material Science & Manufacturing
-             {
-                question: "11. Which of the following is generally considered the hardest known natural material?",
-                options: [
-                    "A) Steel",
-                    "B) Titanium",
-                    "C) Diamond",
-                    "D) Quartz"
-                ],
-                correctAnswer: 2,
-                image: null
-            },
-             {
-                question: "12. Annealing is a heat treatment process primarily used to:",
-                options: [
-                    "A) Increase hardness and strength",
-                    "B) Relieve internal stresses and increase ductility/softness",
-                    "C) Improve wear resistance",
-                    "D) Create a corrosion-resistant surface"
-                ],
-                correctAnswer: 1,
-                image: null
-            },
-             {
-                question: "13. Which manufacturing process is most suitable for producing long, continuous shapes with a constant cross-section, like pipes or I-beams?",
-                options: [
-                    "A) Casting",
-                    "B) Forging",
-                    "C) Extrusion",
-                    "D) Injection Molding"
-                ],
-                correctAnswer: 2,
+                correctAnswer: 2, // Index of 'C) Stress in A is one-quarter the stress in B.'
                 image: null
             },
             {
-                question: "14. The process of joining two metal pieces by melting and flowing a filler metal (with a lower melting point than the base metals) into the joint is called:",
+                question: "11. Circuit Analysis (Basic): Three resistors (10Ω, 20Ω, 30Ω) are connected in series to a 60V power source. What is the current flowing through the 20Ω resistor?",
                 options: [
-                    "A) Welding",
-                    "B) Brazing or Soldering",
-                    "C) Riveting",
-                    "D) Adhesive Bonding"
+                    "A) 3A",
+                    "B) 2A",
+                    "C) 1A", // Correct
+                    "D) 0.5A"
                 ],
-                correctAnswer: 1, // Brazing/Soldering fit this description best
-                image: null
-            },
-            // Machine Design & Vibrations
-            {
-                question: "15. A gear train with an overall velocity ratio greater than 1 provides:",
-                options: [
-                    "A) Speed reduction and torque increase",
-                    "B) Speed increase and torque reduction",
-                    "C) No change in speed or torque",
-                    "D) Only a change in direction"
-                ],
-                correctAnswer: 0, // Velocity Ratio = Input Speed / Output Speed. VR > 1 means Output Speed < Input Speed.
+                correctAnswer: 2, // Index of 'C) 1A'
                 image: null
             },
             {
-                question: "16. The purpose of lubrication in bearings is primarily to:",
+                question: "12. Fluid Dynamics (Concept): According to Bernoulli's principle, in a steady flow of an incompressible, inviscid fluid, where the fluid velocity is highest, the pressure is:",
                 options: [
-                    "A) Increase the operating temperature",
-                    "B) Reduce friction and wear between moving surfaces",
-                    "C) Increase the load capacity",
-                    "D) Prevent corrosion only"
+                    "A) Highest",
+                    "B) Lowest", // Correct
+                    "C) Unchanged",
+                    "D) Dependent only on density"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1, // Index of 'B) Lowest'
                 image: null
             },
             {
-                question: "17. Resonance in a mechanical system occurs when the forcing frequency is close to the system's:",
+                question: "13. Thermodynamics (Concept): Heat transfer through a solid material primarily occurs via:",
                 options: [
-                    "A) Damping coefficient",
-                    "B) Stiffness",
-                    "C) Mass",
-                    "D) Natural frequency"
-                ],
-                correctAnswer: 3,
-                image: null
-            },
-            // Heat Transfer & General Concepts
-            {
-                question: "18. Heat transfer through a solid material primarily occurs via:",
-                options: [
-                    "A) Conduction",
-                    "B) Convection",
+                    "A) Convection",
+                    "B) Conduction", // Correct
                     "C) Radiation",
                     "D) Advection"
                 ],
-                correctAnswer: 0,
+                correctAnswer: 1, // Index of 'B) Conduction'
                 image: null
             },
             {
-                question: "19. In the context of engineering drawings, 'orthographic projection' typically shows:",
+                question: "14. Problem Identification: A machine component is failing prematurely due to fatigue. Which factor is *least likely* to be a primary cause of fatigue failure?",
                 options: [
-                    "A) A single, 3D perspective view",
-                    "B) Multiple 2D views of an object (e.g., front, top, side)",
-                    "C) An exploded view of an assembly",
-                    "D) A cross-sectional view only"
+                    "A) Cyclic loading",
+                    "B) Stress concentrations (sharp corners)",
+                    "C) Material defects",
+                    "D) Static overload" // Correct
                 ],
-                correctAnswer: 1,
+                correctAnswer: 3, // Index of 'D) Static overload'
                 image: null
             },
             {
-                question: "20. A factor of safety (FoS) in design is used to:",
+                question: "15. Design Choice Evaluation: For a lightweight structure requiring high stiffness, which material property is most critical?",
                 options: [
-                    "A) Calculate the exact failure point",
-                    "B) Reduce the weight of the component",
-                    "C) Account for uncertainties in loads, material properties, and analysis",
-                    "D) Determine the manufacturing cost"
+                    "A) Ultimate Tensile Strength",
+                    "B) Specific Modulus (Young's Modulus / Density)", // Correct
+                    "C) Ductility",
+                    "D) Hardness"
                 ],
-                correctAnswer: 2,
+                correctAnswer: 1, // Index of 'B) Specific Modulus (Young's Modulus / Density)'
+                image: null
+            },
+            {
+                question: "16. Troubleshooting Logic: A DC motor fails to start. You measure voltage at the terminals and it's correct. What is the *next logical* step?",
+                options: [
+                    "A) Replace the power supply.",
+                    "B) Measure the resistance of the power cord.",
+                    "C) Check the motor brushes and commutator (if applicable) or motor windings for continuity.", // Correct
+                    "D) Increase the supply voltage."
+                ],
+                correctAnswer: 2, // Index of 'C) Check the motor brushes...'
+                image: null
+            },
+            {
+                question: "17. Kinematics: A car accelerates uniformly from rest to 20 m/s in 5 seconds. What is its acceleration?",
+                options: [
+                    "A) 2 m/s²",
+                    "B) 4 m/s²", // Correct
+                    "C) 5 m/s²",
+                    "D) 100 m/s²"
+                ],
+                correctAnswer: 1, // Index of 'B) 4 m/s²'
+                image: null
+            },
+            {
+                question: "18. Material Selection: Which material is generally best suited for electrical insulation?",
+                options: [
+                    "A) Copper",
+                    "B) Aluminum",
+                    "C) Rubber", // Correct
+                    "D) Steel"
+                ],
+                correctAnswer: 2, // Index of 'C) Rubber'
+                image: null
+            },
+            {
+                question: "19. Force Analysis: A 10 kg block rests on a frictionless horizontal surface. A horizontal force of 50 N is applied. What is the acceleration of the block?",
+                options: [
+                    "A) 0.5 m/s²",
+                    "B) 5 m/s²", // Correct
+                    "C) 10 m/s²",
+                    "D) 500 m/s²"
+                ],
+                correctAnswer: 1, // Index of 'B) 5 m/s²'
+                image: null
+            },
+            {
+                question: "20. Identifying Assumptions: A calculation assumes ideal gas behavior. Which condition makes this assumption *less* valid?",
+                options: [
+                    "A) Low pressure",
+                    "B) High temperature",
+                    "C) High pressure and low temperature", // Correct
+                    "D) Low density"
+                ],
+                correctAnswer: 2, // Index of 'C) High pressure and low temperature'
+                image: null
+            },
+            {
+                question: "21. Control Systems (Concept): What is the primary function of feedback in a closed-loop control system?",
+                options: [
+                    "A) To increase the system's speed.",
+                    "B) To reduce the difference between the desired output and the actual output.", // Correct
+                    "C) To amplify the input signal.",
+                    "D) To filter noise from the sensor."
+                ],
+                correctAnswer: 1, // Index of 'B) To reduce the difference...'
+                image: null
+            },
+            {
+                question: "22. Energy Conservation: A ball is dropped from a height 'h'. Neglecting air resistance, its potential energy at the top is equal to its _______ energy just before hitting the ground.",
+                options: [
+                    "A) Potential",
+                    "B) Kinetic", // Correct
+                    "C) Thermal",
+                    "D) Total Mechanical"
+                ],
+                correctAnswer: 1, // Index of 'B) Kinetic'
+                image: null
+            },
+            // Section 3: Quick Thinking & Application
+            {
+                question: "23. Estimation: Estimate the approximate mass of a standard smartphone.",
+                options: [
+                    "A) 50 grams",
+                    "B) 150-200 grams", // Correct
+                    "C) 500 grams",
+                    "D) 1 kilogram"
+                ],
+                correctAnswer: 1, // Index of 'B) 150-200 grams'
+                image: null
+            },
+            {
+                question: "24. Unit Conversion: How many millimeters are in 2.5 meters?",
+                options: [
+                    "A) 25 mm",
+                    "B) 250 mm",
+                    "C) 2500 mm", // Correct
+                    "D) 25000 mm"
+                ],
+                correctAnswer: 2, // Index of 'C) 2500 mm'
+                image: null
+            },
+            {
+                question: "25. Graph Interpretation: A graph shows velocity vs. time for an object. What does the area under the curve represent?",
+                options: [
+                    "A) Acceleration",
+                    "B) Displacement", // Correct
+                    "C) Jerk (rate of change of acceleration)",
+                    "D) Average velocity"
+                ],
+                correctAnswer: 1, // Index of 'B) Displacement'
+                image: null
+            },
+            {
+                question: "26. Standard Components: Which thread type is commonly used for fasteners like bolts and screws in general mechanical applications in metric countries?",
+                options: [
+                    "A) Acme thread",
+                    "B) Buttress thread",
+                    "C) ISO Metric thread (e.g., M6, M8)", // Correct
+                    "D) Whitworth thread"
+                ],
+                correctAnswer: 2, // Index of 'C) ISO Metric thread (e.g., M6, M8)'
+                image: null
+            },
+            {
+                question: "27. Safety Factor: In engineering design, a safety factor is used to:",
+                options: [
+                    "A) Make the design cheaper.",
+                    "B) Increase the operating speed.",
+                    "C) Account for uncertainties in loads, material properties, and analysis.", // Correct
+                    "D) Reduce the weight of the component."
+                ],
+                correctAnswer: 2, // Index of 'C) Account for uncertainties...'
+                image: null
+            },
+            {
+                question: "28. Manufacturing Process ID: Which process is typically used to create complex plastic parts like casings for electronics in high volume?",
+                options: [
+                    "A) Sand casting",
+                    "B) Forging",
+                    "C) Injection molding", // Correct
+                    "D) Machining from billet"
+                ],
+                correctAnswer: 2, // Index of 'C) Injection molding'
+                image: null
+            },
+            {
+                question: "29. Quick Calculation: If a pump moves water at 10 liters per minute, how long will it take to fill a 1 cubic meter tank? (1 cubic meter = 1000 liters)",
+                options: [
+                    "A) 10 minutes",
+                    "B) 100 minutes", // Correct
+                    "C) 1000 minutes",
+                    "D) 1 minute"
+                ],
+                correctAnswer: 1, // Index of 'B) 100 minutes'
+                image: null
+            },
+            {
+                question: "30. Tolerance Interpretation: A dimension on a drawing is given as 25.0 ± 0.1 mm. What is the maximum permissible size?",
+                options: [
+                    "A) 24.9 mm",
+                    "B) 25.0 mm",
+                    "C) 25.1 mm", // Correct
+                    "D) 0.1 mm"
+                ],
+                correctAnswer: 2, // Index of 'C) 25.1 mm'
+                image: null
+            },
+            // Section 4: GD&T and Manufacturing
+            {
+                question: "31. GD&T - Feature Control Frame: What does the symbol '⌖' (position tolerance) control in a feature control frame?",
+                options: [
+                    "A) The flatness of a surface.",
+                    "B) The location of a feature (like a hole) relative to datums.", // Correct
+                    "C) The orientation (parallelism/perpendicularity) of a feature.",
+                    "D) The circularity of a cylindrical feature."
+                ],
+                correctAnswer: 1, // Index of 'B) The location of a feature...'
+                image: null
+            },
+            {
+                question: "32. GD&T - Datum: Why are datums (e.g., Datum A, B, C) established on an engineering drawing?",
+                options: [
+                    "A) To indicate the material specification.",
+                    "B) To show hidden lines.",
+                    "C) To provide a stable reference frame for dimensioning and tolerancing features.", // Correct
+                    "D) To specify the surface finish required."
+                ],
+                correctAnswer: 2, // Index of 'C) To provide a stable reference frame...'
+                image: null
+            },
+            {
+                question: "33. GD&T - Material Condition: What does the symbol 'Ⓜ' (Maximum Material Condition - MMC) following a tolerance value in a feature control frame signify?",
+                options: [
+                    "A) The tolerance applies regardless of feature size.",
+                    "B) The stated tolerance applies when the feature contains the maximum amount of material (e.g., smallest hole, largest pin), and bonus tolerance may be available as the feature departs from MMC.", // Correct
+                    "C) The tolerance applies only when the feature contains the least amount of material (LMC).",
+                    "D) The feature must be made from a specific material."
+                ],
+                correctAnswer: 1, // Index of 'B) The stated tolerance applies when...'
+                image: null
+            },
+            {
+                question: "34. Manufacturing - Process Selection: You need to produce 10,000 identical, small, complex metal gears with high precision. Which manufacturing process is generally most suitable and cost-effective?",
+                options: [
+                    "A) Sand Casting",
+                    "B) Manual Machining (Milling/Turning)",
+                    "C) Metal Injection Molding (MIM) or Powder Metallurgy", // Correct
+                    "D) Forging"
+                ],
+                correctAnswer: 2, // Index of 'C) Metal Injection Molding (MIM)...'
+                image: null
+            },
+            {
+                question: "35. Manufacturing - Machining: What is the primary purpose of using cutting fluid during machining operations like drilling or milling?",
+                options: [
+                    "A) To increase the cutting speed only.",
+                    "B) To make the workpiece heavier.",
+                    "C) To cool the tool and workpiece, lubricate the cutting zone, and flush away chips.", // Correct
+                    "D) To harden the surface of the workpiece."
+                ],
+                correctAnswer: 2, // Index of 'C) To cool the tool and workpiece...'
+                image: null
+            },
+            {
+                question: "36. Manufacturing - Surface Finish: A drawing specifies a surface finish requirement using a symbol like '√' with a number (e.g., 1.6). What does this number typically represent?",
+                options: [
+                    "A) The hardness of the surface in Rockwell C.",
+                    "B) The thickness of the coating in millimeters.",
+                    "C) The maximum allowable surface roughness average (Ra) in micrometers (μm).", // Correct
+                    "D) The minimum depth of cut required."
+                ],
+                correctAnswer: 2, // Index of 'C) The maximum allowable surface roughness...'
+                image: null
+            },
+            {
+                question: "37. GD&T - Practical Application: A shaft needs to fit smoothly into a bearing bore. Which GD&T control would be most critical to ensure proper alignment and rotation?",
+                options: [
+                    "A) Flatness of the shaft end face.",
+                    "B) Circularity and Cylindricity of the shaft's outer diameter.", // Correct
+                    "C) Position tolerance of a keyway on the shaft.",
+                    "D) Profile of a surface on a non-critical feature."
+                ],
+                correctAnswer: 1, // Index of 'B) Circularity and Cylindricity...'
+                image: null
+            },
+            {
+                question: "38. Manufacturing - Cost Driver: For CNC machining, which factor typically has the *most significant* impact on the cost per part when producing a moderate volume (e.g., 500 units)?",
+                options: [
+                    "A) Cost of the raw material block.",
+                    "B) Machining time (related to complexity, material removal rate, setup time).", // Correct
+                    "C) Cost of cutting tools.",
+                    "D) Cost of electricity consumed."
+                ],
+                correctAnswer: 1, // Index of 'B) Machining time...'
+                image: null
+            },
+            {
+                question: "39. GD&T - Tolerance Stack-up: Why is performing a tolerance stack-up analysis important during the design phase?",
+                options: [
+                    "A) To determine the overall weight of the assembly.",
+                    "B) To ensure that the accumulated variations from individual part tolerances will still allow the assembly to function correctly (e.g., parts fit together, required clearances are maintained).", // Correct
+                    "C) To choose the color of the final product.",
+                    "D) To calculate the shipping cost."
+                ],
+                correctAnswer: 1, // Index of 'B) To ensure that the accumulated variations...'
+                image: null
+            },
+            {
+                question: "40. Manufacturing - Inspection: Which inspection tool is most appropriate for accurately measuring the diameter of a precision ground pin with a tolerance of ±0.005 mm?",
+                options: [
+                    "A) Steel ruler",
+                    "B) Vernier caliper",
+                    "C) Micrometer", // Correct
+                    "D) Tape measure"
+                ],
+                correctAnswer: 2, // Index of 'C) Micrometer'
                 image: null
             }
         ];
+
+        // Example: Accessing the first question
+        // console.log(questions[0].question);
+        // console.log(questions[0].options);
+        // console.log(questions[0].correctAnswer); // Output: 1 (Index of the correct answer)
+
+
+
 
         // --- DOM Elements ---
         const userDetailsPage = document.getElementById('userDetailsPage');
@@ -503,29 +863,29 @@
         // --- Functions ---
 
         function showPage(pageId) {
-             document.querySelectorAll('.page-section').forEach(page => {
-                 page.classList.remove('active');
-                 page.classList.add('hidden');
-             });
-             const pageToShow = document.getElementById(pageId);
-             if (pageToShow) {
-                 pageToShow.classList.remove('hidden');
-                 pageToShow.classList.add('active');
-             } else {
-                 console.error("Page not found:", pageId);
-             }
-             window.scrollTo(0, 0);
-         }
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+                page.classList.add('hidden');
+            });
+            const pageToShow = document.getElementById(pageId);
+            if (pageToShow) {
+                pageToShow.classList.remove('hidden');
+                pageToShow.classList.add('active');
+            } else {
+                console.error("Page not found:", pageId);
+            }
+            window.scrollTo(0, 0);
+        }
 
         function clearErrors() {
-             userNameError.classList.add('hidden');
-             userEmailError.classList.add('hidden');
-             userPhoneError.classList.add('hidden');
-             userNameInput.classList.remove('border-red-500');
-             userEmailInput.classList.remove('border-red-500');
-             userPhoneInput.classList.remove('border-red-500');
-             submissionStatus.textContent = '';
-         }
+            userNameError.classList.add('hidden');
+            userEmailError.classList.add('hidden');
+            userPhoneError.classList.add('hidden');
+            userNameInput.classList.remove('border-red-500');
+            userEmailInput.classList.remove('border-red-500');
+            userPhoneInput.classList.remove('border-red-500');
+            submissionStatus.textContent = '';
+        }
 
         function validateUserDetails() {
             clearErrors();
@@ -542,22 +902,22 @@
             }
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!email) {
-                 userEmailError.textContent = 'Email is required.';
-                 userEmailError.classList.remove('hidden');
-                 userEmailInput.classList.add('border-red-500');
-                 isValid = false;
-             } else if (!emailRegex.test(email)) {
-                 userEmailError.textContent = 'Please enter a valid email address.';
-                 userEmailError.classList.remove('hidden');
-                 userEmailInput.classList.add('border-red-500');
-                 isValid = false;
-             }
+                userEmailError.textContent = 'Email is required.';
+                userEmailError.classList.remove('hidden');
+                userEmailInput.classList.add('border-red-500');
+                isValid = false;
+            } else if (!emailRegex.test(email)) {
+                userEmailError.textContent = 'Please enter a valid email address.';
+                userEmailError.classList.remove('hidden');
+                userEmailInput.classList.add('border-red-500');
+                isValid = false;
+            }
             if (!phone) {
-                 userPhoneError.textContent = 'Phone number is required.';
-                 userPhoneError.classList.remove('hidden');
-                 userPhoneInput.classList.add('border-red-500');
-                 isValid = false;
-             }
+                userPhoneError.textContent = 'Phone number is required.';
+                userPhoneError.classList.remove('hidden');
+                userPhoneInput.classList.add('border-red-500');
+                isValid = false;
+            }
             return isValid;
         }
 
@@ -611,7 +971,7 @@
                     imgElement.alt = `Image for question ${index + 1}`;
                     imgElement.className = 'question-image'; // Apply styling
                     // Add error handling for broken image links
-                    imgElement.onerror = function() {
+                    imgElement.onerror = function () {
                         this.alt = `Image for question ${index + 1} failed to load.`;
                         this.style.display = 'none'; // Hide broken image icon
                         // Optionally display a placeholder or message
@@ -639,7 +999,7 @@
                     radioInput.addEventListener('change', () => handleAnswerSelection(index, optionIndex));
 
                     if (savedAnswers[index] === optionIndex) {
-                         radioInput.checked = true;
+                        radioInput.checked = true;
                     }
 
                     const optionLabel = document.createElement('label');
@@ -691,11 +1051,11 @@
         }
 
         function updateTimerDisplay() {
-             const remaining = Math.max(0, quizEndTime - Date.now());
-             const minutes = Math.floor((remaining / 1000 / 60) % 60);
-             const seconds = Math.floor((remaining / 1000) % 60);
-             timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-             timerDisplay.classList.remove('timer-expired');
+            const remaining = Math.max(0, quizEndTime - Date.now());
+            const minutes = Math.floor((remaining / 1000 / 60) % 60);
+            const seconds = Math.floor((remaining / 1000) % 60);
+            timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            timerDisplay.classList.remove('timer-expired');
         }
 
         function calculateScore() {
@@ -708,7 +1068,7 @@
             return score;
         }
 
-         function generateDetailedResultsCSV() {
+        function generateDetailedResultsCSV() {
             const results = [];
             for (let i = 0; i < questions.length; i++) {
                 if (!userAnswers.hasOwnProperty(i)) {
@@ -720,14 +1080,14 @@
                 }
             }
             return results.join(',');
-         }
+        }
 
         function calculateTimeTaken() {
-             const endTime = Date.now();
-             const startTime = quizEndTime - (QUIZ_DURATION_MINUTES * 60 * 1000);
-             timeTaken = Math.round((endTime - startTime) / 1000);
-             timeTaken = Math.min(timeTaken, QUIZ_DURATION_MINUTES * 60);
-             timeTaken = Math.max(0, timeTaken);
+            const endTime = Date.now();
+            const startTime = quizEndTime - (QUIZ_DURATION_MINUTES * 60 * 1000);
+            timeTaken = Math.round((endTime - startTime) / 1000);
+            timeTaken = Math.min(timeTaken, QUIZ_DURATION_MINUTES * 60);
+            timeTaken = Math.max(0, timeTaken);
         }
 
         function handleQuizSubmit(event) {
@@ -737,37 +1097,37 @@
         }
 
         function forceSubmitQuiz() {
-             if (quizSubmitted) return;
-             quizSubmitted = true;
-             clearInterval(timerInterval);
-             calculateTimeTaken();
-             const score = calculateScore();
-             const detailedResultsCSV = generateDetailedResultsCSV();
+            if (quizSubmitted) return;
+            quizSubmitted = true;
+            clearInterval(timerInterval);
+            calculateTimeTaken();
+            const score = calculateScore();
+            const detailedResultsCSV = generateDetailedResultsCSV();
 
-             submitButton.disabled = true;
-             submitButton.textContent = 'Submitting...';
-             document.querySelectorAll('.option-radio').forEach(radio => radio.disabled = true);
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+            document.querySelectorAll('.option-radio').forEach(radio => radio.disabled = true);
 
-             const formData = {
-                 ...userDetails,
-                 timestamp: new Date().toISOString(),
-                 score: score,
-                 timeTaken: timeTaken,
-                 results: detailedResultsCSV
-             };
+            const formData = {
+                ...userDetails,
+                timestamp: new Date().toISOString(),
+                score: score,
+                timeTaken: timeTaken,
+                results: detailedResultsCSV
+            };
 
-             sendDataToGoogleSheet(formData);
+            sendDataToGoogleSheet(formData);
 
-             showPage('resultsPage');
-             resultsContainer.textContent = `Calculating results...`;
+            showPage('resultsPage');
+            resultsContainer.textContent = `Calculating results...`;
 
-             setTimeout(() => {
-                 resultsContainer.innerHTML = `Your Score: <strong class="text-xl">${score}</strong> / ${questions.length}`;
-             }, 500);
+            setTimeout(() => {
+                resultsContainer.innerHTML = `Your Score: <strong class="text-xl">${score}</strong> / ${questions.length}`;
+            }, 500);
 
-             localStorage.removeItem('quizUserDetails');
-             localStorage.removeItem('quizUserAnswers');
-             localStorage.removeItem('quizEndTime');
+            localStorage.removeItem('quizUserDetails');
+            localStorage.removeItem('quizUserAnswers');
+            localStorage.removeItem('quizEndTime');
         }
 
         function sendDataToGoogleSheet(data) {
@@ -783,36 +1143,36 @@
             console.log("Submitting to:", urlWithParams);
 
             fetch(urlWithParams, { method: "GET", mode: "no-cors" })
-            .then(() => {
-                console.log("Data submission initiated (no-cors).");
-                submissionStatus.textContent = "Results submitted successfully.";
-                submissionStatus.style.color = 'green';
-            })
-            .catch(error => {
-                console.error("Error submitting data:", error);
-                submissionStatus.textContent = `Error: Could not submit results (${error.message}).`;
-                 submissionStatus.style.color = 'red';
-            });
+                .then(() => {
+                    console.log("Data submission initiated (no-cors).");
+                    submissionStatus.textContent = "Results submitted successfully.";
+                    submissionStatus.style.color = 'green';
+                })
+                .catch(error => {
+                    console.error("Error submitting data:", error);
+                    submissionStatus.textContent = `Error: Could not submit results (${error.message}).`;
+                    submissionStatus.style.color = 'red';
+                });
         }
 
         function initializeQuizState() {
-             const savedDetails = localStorage.getItem('quizUserDetails');
-             const savedEndTime = localStorage.getItem('quizEndTime');
-             const now = Date.now();
-             testDurationDisplay.textContent = QUIZ_DURATION_MINUTES;
+            const savedDetails = localStorage.getItem('quizUserDetails');
+            const savedEndTime = localStorage.getItem('quizEndTime');
+            const now = Date.now();
+            testDurationDisplay.textContent = QUIZ_DURATION_MINUTES;
 
-             if (savedDetails && savedEndTime && parseInt(savedEndTime) > now) {
-                 userDetails = JSON.parse(savedDetails);
-                 console.log("Resuming quiz for:", userDetails.email);
-                 displayUserName.textContent = userDetails.name;
-                 displayUserEmail.textContent = userDetails.email;
-                 startQuiz();
-             } else {
-                 showPage('userDetailsPage');
-                 localStorage.removeItem('quizUserDetails');
-                 localStorage.removeItem('quizUserAnswers');
-                 localStorage.removeItem('quizEndTime');
-             }
+            if (savedDetails && savedEndTime && parseInt(savedEndTime) > now) {
+                userDetails = JSON.parse(savedDetails);
+                console.log("Resuming quiz for:", userDetails.email);
+                displayUserName.textContent = userDetails.name;
+                displayUserEmail.textContent = userDetails.email;
+                startQuiz();
+            } else {
+                showPage('userDetailsPage');
+                localStorage.removeItem('quizUserDetails');
+                localStorage.removeItem('quizUserAnswers');
+                localStorage.removeItem('quizEndTime');
+            }
         }
 
         // --- Event Listeners ---
@@ -825,4 +1185,5 @@
     </script>
 
 </body>
+
 </html>
