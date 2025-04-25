@@ -46,11 +46,35 @@
             /* max-w-3xl */
             margin: 1rem auto;
             /* Center the box */
+            margin-top: 1rem;
         }
 
         #userDetailsPage .content-container {
             max-width: 32rem;
             /* max-w-md */
+        }
+
+        #pager-timer-header {
+            position: sticky;
+            /* Makes the header stick to the top */
+            top: 0;
+            /* Sticks to the top of the viewport */
+            z-index: 10;
+            /* Ensures it stays above other elements */
+            background-color: #ffffff;
+            /* Matches the background color */
+            padding: 1rem;
+            /* Adds padding for spacing */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Adds a subtle shadow for separation */
+            margin-bottom: 1rem;
+        }
+
+        #questionsContainer {
+            margin-top: 1rem;
+            /* Ensures the quiz content starts below the sticky header */
+            padding-top: 1rem;
+            /* Adds padding for better spacing */
         }
 
         .input-field {
@@ -332,15 +356,23 @@
     </div>
 
     <div id="quizPage" class="page-section hidden">
-        <div class="content-container">
+        <div id="pager-timer-header" class="content-container">
+
             <div class="flex justify-between items-center mb-4 border-b border-gray-200 pb-4">
                 <h1 class="text-xl font-bold text-gray-800">Test In Progress</h1>
-                <div id="timer" class="timer-container">20:00</div>
+
+                <div id="timer" class="timer-container">30:00</div>
             </div>
             <div class="mb-6 p-4 bg-gray-50 rounded-md border border-gray-200 text-sm text-gray-600">
                 <p><strong>Name:</strong> <span id="displayUserName"></span></p>
                 <p><strong>Email:</strong> <span id="displayUserEmail"></span></p>
+                <p> ________________________________________________<span id="displayUserEmail"></span></p>
+                <p><strong>Total No of Questions : 40</strong> <span id="totalQuestions"></span></p>
+                <p><strong>Attempted Questions :</strong> <span id="attemptedQuestions"></span></p>
             </div>
+        </div>
+
+        <div class="content-container">
 
             <form id="quizForm">
                 <div id="questionsContainer">
@@ -445,14 +477,14 @@
                 image: null
             },
             {
-                question: "7. Logical Deduction: Statement 1: If the motor is running, the light is on. Statement 2: The light is off. What can you conclude?",
+                question: "7. Logical Deduction: Statement 1: If the motor is running, the LED is on. Statement 2: The LED is off. What can you conclude?",
                 options: [
                     "A) The motor is running.",
-                    "B) The motor is not running.", // Correct
-                    "C) The motor might be running.",
+                    "B) The motor is not running.",
+                    "C) The motor might be running.", // Correct
                     "D) The light switch is broken."
                 ],
-                correctAnswer: 1, // Index of 'B) The motor is not running.'
+                correctAnswer: 3, // Index of 'C) The motor might be running.'
                 image: null
             },
             {
@@ -689,7 +721,7 @@
                 image: null
             },
             {
-                question: "29. Quick Calculation: If a pump moves water at 10 liters per minute, how long will it take to fill a 1 cubic meter tank? (1 cubic meter = 1000 liters)",
+                question: "29. Quick Calculation: If a pump moves water at 10 liters per minute, how long will it take to fill a 1 cubic meter tank? ",
                 options: [
                     "A) 10 minutes",
                     "B) 100 minutes", // Correct
@@ -789,7 +821,7 @@
                 image: null
             },
             {
-                question: "38. Manufacturing - Cost Driver: For CNC machining, which factor typically has the *most significant* impact on the cost per part when producing a moderate volume (e.g., 500 units)?",
+                question: "38. Manufacturing - Cost Driver: For CNC machining, which factor typically has the *most significant* impact on the cost per part when producing a moderate volume (e.g., 500 units of spur gear)?",
                 options: [
                     "A) Cost of the raw material block.",
                     "B) Machining time (related to complexity, material removal rate, setup time).", // Correct
@@ -851,6 +883,9 @@
         const displayUserName = document.getElementById('displayUserName');
         const displayUserEmail = document.getElementById('displayUserEmail');
         const testDurationDisplay = document.getElementById('testDurationDisplay');
+        const attemptedQuestions = document.getElementById('attemptedQuestions');
+
+
 
         // --- State ---
         let userAnswers = {};
@@ -859,7 +894,7 @@
         let quizEndTime = null;
         let timeTaken = 0;
         let quizSubmitted = false;
-
+        let attemptedQuestionsCount = 0;
         // --- Functions ---
 
         function showPage(pageId) {
@@ -940,6 +975,7 @@
         function startQuiz() {
             renderQuestions();
             startTimer();
+            // initializeQuizState();
             showPage('quizPage');
         }
 
@@ -1017,11 +1053,47 @@
             });
         }
 
+        function handleAnswerSelection(questionIndex, optionIndex) {
+            if (quizSubmitted) return;
+
+            // Check if the question was previously unanswered
+            if (!userAnswers.hasOwnProperty(questionIndex)) {
+                attemptedQuestionsCount++; // Increment the count for a new attempt
+            }
+
+            // Update the user's answer
+            userAnswers[questionIndex] = optionIndex;
+
+            // Save the updated answers to localStorage
+            localStorage.setItem('quizUserAnswers', JSON.stringify(userAnswers));
+
+            // Update the attempted questions count in the UI
+            updateAttemptedQuestionsCount();
+        }
+
+        function updateAttemptedQuestionsCount() {
+            const attemptedQuestionsElement = document.getElementById('attemptedQuestions');
+            attemptedQuestionsElement.textContent = attemptedQuestionsCount;
+        }
+
+
 
         function handleAnswerSelection(questionIndex, optionIndex) {
             if (quizSubmitted) return;
+
+            // Check if the question was previously unanswered
+            if (!userAnswers.hasOwnProperty(questionIndex)) {
+                attemptedQuestionsCount++; // Increment the count for a new attempt
+            }
+
+            // Update the user's answer
             userAnswers[questionIndex] = optionIndex;
+
+            // Save the updated answers to localStorage
             localStorage.setItem('quizUserAnswers', JSON.stringify(userAnswers));
+
+            // Update the attempted questions count in the UI
+            updateAttemptedQuestionsCount();
         }
 
         function startTimer() {
@@ -1154,12 +1226,16 @@
                     submissionStatus.style.color = 'red';
                 });
         }
-
         function initializeQuizState() {
             const savedDetails = localStorage.getItem('quizUserDetails');
             const savedEndTime = localStorage.getItem('quizEndTime');
+            const savedAnswers = JSON.parse(localStorage.getItem('quizUserAnswers') || '{}');
             const now = Date.now();
             testDurationDisplay.textContent = QUIZ_DURATION_MINUTES;
+
+            // Calculate the initial number of attempted questions
+            attemptedQuestionsCount = Object.keys(savedAnswers).length;
+            updateAttemptedQuestionsCount(); // Update the UI with the initial count
 
             if (savedDetails && savedEndTime && parseInt(savedEndTime) > now) {
                 userDetails = JSON.parse(savedDetails);
