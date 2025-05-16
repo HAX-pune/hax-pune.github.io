@@ -403,464 +403,462 @@
 
     <script>
         // --- Configuration ---
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6BFW02H1NGBVQR0LqgFQCMZ8kzZ9zHnEpu98o0qYX2Jjerek4n6QiNB7twiPfSy5fdg/exec"; // !!! IMPORTANT: Replace !!!
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLNLbHLXdDwpxGJt-dmL6LV0Wfr8I-bOUPqb5lbtA-o7OPkYQL2lBz0UqP5sPauOPIjg/exec"; // !!! IMPORTANT: Replace !!!
         const QUIZ_DURATION_MINUTES = 30;
 
         // --- HAX Engineering Intern Assessment Test Data ---
 
-        const questions = [
-            // Section 1: Logical Reasoning
-            {
-                question: "1. Pattern Recognition: Complete the sequence: 2, 5, 11, 23, __",
-                options: [
-                    "A) 45",
-                    "B) 47", // Correct: Multiply by 2, add 1
-                    "C) 46",
-                    "D) 48"
-                ],
-                correctAnswer: 1, // Index of 'B) 47'
-                image: null
-            },
-            {
-                question: "2. Spatial Reasoning: Imagine a standard six-sided die. If the face '1' is opposite '6', '2' is opposite '5', what face is opposite '3'?",
-                options: [
-                    "A) 1",
-                    "B) 2",
-                    "C) 4", // Correct
-                    "D) 5"
-                ],
-                correctAnswer: 2, // Index of 'C) 4'
-                image: null
-            },
-            {
-                question: "3. Analogy: Gear is to Rotation as Piston is to _______.",
-                options: [
-                    "A) Cylinder",
-                    "B) Engine",
-                    "C) Reciprocation", // Correct
-                    "D) Crankshaft"
-                ],
-                correctAnswer: 2, // Index of 'C) Reciprocation'
-                image: null
-            },
-            {
-                question: "4. Deductive Logic: All widgets are gizmos. Some gadgets are widgets. Which conclusion *must* be true?",
-                options: [
-                    "A) All gadgets are gizmos.",
-                    "B) Some gadgets are gizmos.", // Correct
-                    "C) No gizmos are gadgets.",
-                    "D) All gizmos are widgets."
-                ],
-                correctAnswer: 1, // Index of 'B) Some gadgets are gizmos.'
-                image: null
-            },
-            {
-                question: "5. Spatial Visualization: If the 2D net below is folded into a cube, which face will be opposite face 'C'?",
-                options: [
-                    "A) A",
-                    "B) B",
-                    "C) E", // Correct
-                    "D) F"
-                ],
-                correctAnswer: 2, // Index of 'C) E'
-                image: './img/quiz-img/me-question-05.png' // Note: The ASCII diagram is included in the question text.
-            },
-            {
-                question: "6. Number Series: Find the missing number: 81, 27, 9, 3, 1, __",
-                options: [
-                    "A) 0",
-                    "B) 1/3", // Correct: Divide by 3
-                    "C) -1",
-                    "D) 1/9"
-                ],
-                correctAnswer: 1, // Index of 'B) 1/3'
-                image: null
-            },
-            {
-                question: "7. Logical Deduction: Statement 1: If the motor is running, the LED is on. Statement 2: The LED is off. What can you conclude?",
-                options: [
-                    "A) The motor is running.",
-                    "B) The motor is not running.",
-                    "C) The motor might be running.", // Correct
-                    "D) The light switch is broken."
-                ],
-                correctAnswer: 2, // Index of 'C) The motor might be running.'
-                image: null
-            },
-            {
-                question: "8. Relationship Analysis: If A > B, C < B, and D > A, which statement is definitely true?",
-                options: [
-                    "A) B > D",
-                    "B) C > A",
-                    "C) D > C", // Correct
-                    "D) A = C"
-                ],
-                correctAnswer: 2, // Index of 'C) D > C'
-                image: null
-            },
-            // Section 2: Critical Thinking & Problem Solving
-            {
-                question: "9. Mechanical Advantage: In a simple lever system (Class 1), if the effort arm is twice as long as the load arm, what is the ideal mechanical advantage?",
-                options: [
-                    "A) 0.5",
-                    "B) 1",
-                    "C) 2", // Correct
-                    "D) 4"
-                ],
-                correctAnswer: 2, // Index of 'C) 2'
-                image: null
-            },
-            {
-                question: "10. Stress & Strain: Two wires, A and B, are made of the same material and have the same length. Wire A has twice the diameter of wire B. If the same tensile force is applied to both, how does the stress in A compare to the stress in B?",
-                options: [
-                    "A) Stress in A is twice the stress in B.",
-                    "B) Stress in A is half the stress in B.",
-                    "C) Stress in A is one-quarter the stress in B.", // Correct
-                    "D) Stress in A is four times the stress in B."
-                ],
-                correctAnswer: 2, // Index of 'C) Stress in A is one-quarter the stress in B.'
-                image: null
-            },
-            {
-                question: "11. Circuit Analysis (Basic): Three resistors (10Ω, 20Ω, 30Ω) are connected in series to a 60V power source. What is the current flowing through the 20Ω resistor?",
-                options: [
-                    "A) 3A",
-                    "B) 2A",
-                    "C) 1A", // Correct
-                    "D) 0.5A"
-                ],
-                correctAnswer: 2, // Index of 'C) 1A'
-                image: null
-            },
-            {
-                question: "12. Fluid Dynamics (Concept): According to Bernoulli's principle, in a steady flow of an incompressible, inviscid fluid, where the fluid velocity is highest, the pressure is:",
-                options: [
-                    "A) Highest",
-                    "B) Lowest", // Correct
-                    "C) Unchanged",
-                    "D) Dependent only on density"
-                ],
-                correctAnswer: 1, // Index of 'B) Lowest'
-                image: null
-            },
-            {
-                question: "13. Thermodynamics (Concept): Heat transfer through a solid material primarily occurs via:",
-                options: [
-                    "A) Convection",
-                    "B) Conduction", // Correct
-                    "C) Radiation",
-                    "D) Advection"
-                ],
-                correctAnswer: 1, // Index of 'B) Conduction'
-                image: null
-            },
-            {
-                question: "14. Problem Identification: A machine component is failing prematurely due to fatigue. Which factor is *least likely* to be a primary cause of fatigue failure?",
-                options: [
-                    "A) Cyclic loading",
-                    "B) Stress concentrations (sharp corners)",
-                    "C) Material defects",
-                    "D) Static overload" // Correct
-                ],
-                correctAnswer: 3, // Index of 'D) Static overload'
-                image: null
-            },
-            {
-                question: "15. Design Choice Evaluation: For a lightweight structure requiring high stiffness, which material property is most critical?",
-                options: [
-                    "A) Ultimate Tensile Strength",
-                    "B) Specific Modulus (Young's Modulus / Density)", // Correct
-                    "C) Ductility",
-                    "D) Hardness"
-                ],
-                correctAnswer: 1, // Index of 'B) Specific Modulus (Young's Modulus / Density)'
-                image: null
-            },
-            {
-                question: "16. Troubleshooting Logic: A DC motor fails to start. You measure voltage at the terminals and it's correct. What is the *next logical* step?",
-                options: [
-                    "A) Replace the power supply.",
-                    "B) Measure the resistance of the power cord.",
-                    "C) Check the motor brushes and commutator (if applicable) or motor windings for continuity.", // Correct
-                    "D) Increase the supply voltage."
-                ],
-                correctAnswer: 2, // Index of 'C) Check the motor brushes...'
-                image: null
-            },
-            {
-                question: "17. Kinematics: A car accelerates uniformly from rest to 20 m/s in 5 seconds. What is its acceleration?",
-                options: [
-                    "A) 2 m/s²",
-                    "B) 4 m/s²", // Correct
-                    "C) 5 m/s²",
-                    "D) 100 m/s²"
-                ],
-                correctAnswer: 1, // Index of 'B) 4 m/s²'
-                image: null
-            },
-            {
-                question: "18. Mechanics: Assume the Pulleys A, B, D are fixed in position and C is connected to a block that is placed on a frictionless surface and can move freely left and right. What would be the force needed to pull the weight W? Assume all pulleys are frictionless and massless.",
-                options: [
-                    "A) F = W",
-                    "B) F = 2W",
-                    "C) F = W/2", // Correct
-                    "D) F = 4W"
-                ],
-                correctAnswer: 2, // Index of 'C) Rubber'
-                image: "./img/quiz-img/me-question-18.png" //
-            },
-            {
-                question: "19. Force Analysis: A 10 kg block rests on a frictionless horizontal surface. A horizontal force of 50 N is applied. What is the acceleration of the block?",
-                options: [
-                    "A) 0.5 m/s²",
-                    "B) 5 m/s²", // Correct
-                    "C) 10 m/s²",
-                    "D) 500 m/s²"
-                ],
-                correctAnswer: 1, // Index of 'B) 5 m/s²'
-                image: null
-            },
-            {
-                question: "20. Identifying Assumptions: A calculation assumes ideal gas behavior. Which condition makes this assumption *less* valid?",
-                options: [
-                    "A) Low pressure",
-                    "B) High temperature",
-                    "C) High pressure and low temperature", // Correct
-                    "D) Low density"
-                ],
-                correctAnswer: 2, // Index of 'C) High pressure and low temperature'
-                image: null
-            },
-            {
-                question: "21. Control Systems (Concept): What is the primary function of feedback in a closed-loop control system?",
-                options: [
-                    "A) To increase the system's speed.",
-                    "B) To reduce the difference between the desired output and the actual output.", // Correct
-                    "C) To amplify the input signal.",
-                    "D) To filter noise from the sensor."
-                ],
-                correctAnswer: 1, // Index of 'B) To reduce the difference...'
-                image: null
-            },
-            {
-                question: "22. Energy Conservation: A ball is dropped from a height 'h'. Neglecting air resistance, its potential energy at the top is equal to its _______ energy just before hitting the ground.",
-                options: [
-                    "A) Potential",
-                    "B) Kinetic", // Correct
-                    "C) Thermal",
-                    "D) Total Mechanical"
-                ],
-                correctAnswer: 1, // Index of 'B) Kinetic'
-                image: null
-            },
-            // Section 3: Quick Thinking & Application
-            {
-                question: "23. Estimation: Estimate the approximate mass of a standard smartphone.",
-                options: [
-                    "A) 50 grams",
-                    "B) 150-200 grams", // Correct
-                    "C) 500 grams",
-                    "D) 1 kilogram"
-                ],
-                correctAnswer: 1, // Index of 'B) 150-200 grams'
-                image: null
-            },
-            {
-                question: "24. Unit Conversion: How many millimeters are in 2.5 meters?",
-                options: [
-                    "A) 25 mm",
-                    "B) 250 mm",
-                    "C) 2500 mm", // Correct
-                    "D) 25000 mm"
-                ],
-                correctAnswer: 2, // Index of 'C) 2500 mm'
-                image: null
-            },
-            {
-                question: "25. Graph Interpretation: A graph shows velocity vs. time for an object. What does the area under the curve represent?",
-                options: [
-                    "A) Acceleration",
-                    "B) Displacement", // Correct
-                    "C) Jerk (rate of change of acceleration)",
-                    "D) Average velocity"
-                ],
-                correctAnswer: 1, // Index of 'B) Displacement'
-                image: null
-            },
-            {
-                question: "26. Standard Components: Which thread type is commonly used for fasteners like bolts and screws in general mechanical applications in metric countries?",
-                options: [
-                    "A) Acme thread",
-                    "B) Buttress thread",
-                    "C) ISO Metric thread (e.g., M6, M8)", // Correct
-                    "D) Whitworth thread"
-                ],
-                correctAnswer: 2, // Index of 'C) ISO Metric thread (e.g., M6, M8)'
-                image: null
-            },
-            {
-                question: "27. Safety Factor: In engineering design, a safety factor is used to:",
-                options: [
-                    "A) Make the design cheaper.",
-                    "B) Increase the operating speed.",
-                    "C) Account for uncertainties in loads, material properties, and analysis.", // Correct
-                    "D) Reduce the weight of the component."
-                ],
-                correctAnswer: 2, // Index of 'C) Account for uncertainties...'
-                image: null
-            },
-            {
-                question: "28. Manufacturing Process ID: Which process is typically used to create complex plastic parts like casings for electronics in high volume?",
-                options: [
-                    "A) Sand casting",
-                    "B) Forging",
-                    "C) Injection molding", // Correct
-                    "D) Machining from billet"
-                ],
-                correctAnswer: 2, // Index of 'C) Injection molding'
-                image: null
-            },
-            {
-                question: "29. Quick Calculation: If a pump moves water at 10 liters per minute, how long will it take to fill a 1 cubic meter tank? ",
-                options: [
-                    "A) 10 minutes",
-                    "B) 100 minutes", // Correct
-                    "C) 1000 minutes",
-                    "D) 1 minute"
-                ],
-                correctAnswer: 1, // Index of 'B) 100 minutes'
-                image: null
-            },
-            {
-                question: "30. Tolerance Interpretation: A dimension on a drawing is given as 25.0 ± 0.1 mm. What is the maximum permissible size?",
-                options: [
-                    "A) 24.9 mm",
-                    "B) 25.0 mm",
-                    "C) 25.1 mm", // Correct
-                    "D) 0.1 mm"
-                ],
-                correctAnswer: 2, // Index of 'C) 25.1 mm'
-                image: null
-            },
-            // Section 4: GD&T and Manufacturing
-            {
-                question: "31. GD&T - Feature Control Frame: What does the symbol '⌖' (position tolerance) control in a feature control frame?",
-                options: [
-                    "A) The flatness of a surface.",
-                    "B) The location of a feature (like a hole) relative to datums.", // Correct
-                    "C) The orientation (parallelism/perpendicularity) of a feature.",
-                    "D) The circularity of a cylindrical feature."
-                ],
-                correctAnswer: 1, // Index of 'B) The location of a feature...'
-                image: null
-            },
-            {
-                question: "32. GD&T - Datum: Why are datums (e.g., Datum A, B, C) established on an engineering drawing?",
-                options: [
-                    "A) To indicate the material specification.",
-                    "B) To show hidden lines.",
-                    "C) To provide a stable reference frame for dimensioning and tolerancing features.", // Correct
-                    "D) To specify the surface finish required."
-                ],
-                correctAnswer: 2, // Index of 'C) To provide a stable reference frame...'
-                image: null
-            },
-            {
-                question: "33. GD&T - Material Condition: What does the symbol 'Ⓜ' (Maximum Material Condition - MMC) following a tolerance value in a feature control frame signify?",
-                options: [
-                    "A) The tolerance applies regardless of feature size.",
-                    "B) The stated tolerance applies when the feature contains the maximum amount of material (e.g., smallest hole, largest pin), and bonus tolerance may be available as the feature departs from MMC.", // Correct
-                    "C) The tolerance applies only when the feature contains the least amount of material (LMC).",
-                    "D) The feature must be made from a specific material."
-                ],
-                correctAnswer: 1, // Index of 'B) The stated tolerance applies when...'
-                image: null
-            },
-            {
-                question: "34. Manufacturing - Process Selection: You need to produce 10,000 identical, small, complex metal gears with high precision. Which manufacturing process is generally most suitable and cost-effective?",
-                options: [
-                    "A) Sand Casting",
-                    "B) Manual Machining (Milling/Turning)",
-                    "C) Metal Injection Molding (MIM) or Powder Metallurgy", // Correct
-                    "D) Forging"
-                ],
-                correctAnswer: 2, // Index of 'C) Metal Injection Molding (MIM)...'
-                image: null
-            },
-            {
-                question: "35. Manufacturing - Machining: What is the primary purpose of using cutting fluid during machining operations like drilling or milling?",
-                options: [
-                    "A) To increase the cutting speed only.",
-                    "B) To make the workpiece heavier.",
-                    "C) To cool the tool and workpiece, lubricate the cutting zone, and flush away chips.", // Correct
-                    "D) To harden the surface of the workpiece."
-                ],
-                correctAnswer: 2, // Index of 'C) To cool the tool and workpiece...'
-                image: null
-            },
-            {
-                question: "36. Manufacturing - Surface Finish: A drawing specifies a surface finish requirement using a symbol like '√' with a number (e.g., 1.6). What does this number typically represent?",
-                options: [
-                    "A) The hardness of the surface in Rockwell C.",
-                    "B) The thickness of the coating in millimeters.",
-                    "C) The maximum allowable surface roughness average (Ra) in micrometers (μm).", // Correct
-                    "D) The minimum depth of cut required."
-                ],
-                correctAnswer: 2, // Index of 'C) The maximum allowable surface roughness...'
-                image: null
-            },
-            {
-                question: "37. GD&T - Practical Application: A shaft needs to fit smoothly into a bearing bore. Which GD&T control would be most critical to ensure proper alignment and rotation?",
-                options: [
-                    "A) Flatness of the shaft end face.",
-                    "B) Circularity and Cylindricity of the shaft's outer diameter.", // Correct
-                    "C) Position tolerance of a keyway on the shaft.",
-                    "D) Profile of a surface on a non-critical feature."
-                ],
-                correctAnswer: 1, // Index of 'B) Circularity and Cylindricity...'
-                image: null
-            },
-            {
-                question: "38. Manufacturing - Cost Driver: For CNC machining, which factor typically has the *most significant* impact on the cost per part when producing a moderate volume (e.g., 500 units of spur gear)?",
-                options: [
-                    "A) Cost of the raw material block.",
-                    "B) Machining time (related to complexity, material removal rate, setup time).", // Correct
-                    "C) Cost of cutting tools.",
-                    "D) Cost of electricity consumed."
-                ],
-                correctAnswer: 1, // Index of 'B) Machining time...'
-                image: null
-            },
-            {
-                question: "39. GD&T - Tolerance Stack-up: Why is performing a tolerance stack-up analysis important during the design phase?",
-                options: [
-                    "A) To determine the overall weight of the assembly.",
-                    "B) To ensure that the accumulated variations from individual part tolerances will still allow the assembly to function correctly (e.g., parts fit together, required clearances are maintained).", // Correct
-                    "C) To choose the color of the final product.",
-                    "D) To calculate the shipping cost."
-                ],
-                correctAnswer: 1, // Index of 'B) To ensure that the accumulated variations...'
-                image: null
-            },
-            {
-                question: "40. Manufacturing - Inspection: Which inspection tool is most appropriate for accurately measuring the diameter of a precision ground pin with a tolerance of ±0.005 mm?",
-                options: [
-                    "A) Steel ruler",
-                    "B) Vernier caliper",
-                    "C) Micrometer", // Correct
-                    "D) Tape measure"
-                ],
-                correctAnswer: 2, // Index of 'C) Micrometer'
-                image: null
-            }
-        ];
+        // --- ID Intern Questionnaire Data (from PDF) ---
 
-        // Example: Accessing the first question
-        // console.log(questions[0].question);
-        // console.log(questions[0].options);
-        // console.log(questions[0].correctAnswer); // Output: 1 (Index of the correct answer)
-
-
+const questions = [
+    // Section 1: Design Principles & Aesthetics
+    {
+        question: "1. Dieter Rams, known for his work with Braun, famously advocated for which design principle?",
+        options: [
+            "a) Design should draw attention to itself",
+            "b) Good design is as little design as possible",
+            "c) Form should prioritize artistic expression",
+            "d) More features mean better design"
+        ],
+        correctAnswer: 1, // b
+        image: null
+    },
+    {
+        question: "2. What does the principle of \"closure\" in design refer to?",
+        options: [
+            "a) Completing incomplete shapes mentally",
+            "b) Grouping similar elements",
+            "c) Leading the eye along a path",
+            "d) Separating dissimilar elements"
+        ],
+        correctAnswer: 0, // a
+        image: null
+    },
+    {
+        question: "3. A composition features a large, dark shape on one side balanced by several smaller, lighter shapes scattered on the other. This is best described as:",
+        options: [
+            "a) Symmetrical Balance",
+            "b) Approximate Symmetry",
+            "c) Asymmetrical Balance",
+            "d) Radial Balance"
+        ],
+        correctAnswer: 2, // c
+        image: null
+    },
+    {
+        question: "4. In design, what does the term \"affordance\" refer to?",
+        options: [
+            "a) The aesthetic appeal of a product that enhances brand recognition",
+            "b) The quality of a material that determines its durability and strength",
+            "c) A feature or aspect of an object that suggests how it should be used",
+            "d) The ability of a product to be manufactured at a low cost"
+        ],
+        correctAnswer: 2, // c
+        image: null
+    },
+    {
+        question: "5. Identify the principle demonstrated in the image.", // Image was present in PDF
+        options: [
+            "a) Similarity",
+            "b) Proximity",
+            "c) Closure",
+            "d) Figure-Ground"
+        ],
+        correctAnswer: 0, // a
+        image: './img/quiz-img/id-question-05.png'
+    },
+    {
+        question: "6. A product's successful form most effectively integrates balance, composition, and proportion to primarily enhance:",
+        options: [
+            "a) Manufacturing efficiency and material cost reduction.",
+            "b) Visual appeal and intuitive interaction throughout its use.",
+            "c) Brand recognition and differentiation in the market.",
+            "d) The complexity of its internal mechanisms and technological features."
+        ],
+        correctAnswer: 1, // b
+        image: null
+    },
+    // Section 2: Ergonomics & Human Factors
+    {
+        question: "7. What does 'anthropometry' provide data for in the design process?",
+        options: [
+            "a) Market size and potential sales volume",
+            "b) Human body measurements and dimensions",
+            "c) Material strength and stress tolerance",
+            "d) User psychological profiles"
+        ],
+        correctAnswer: 1, // b
+        image: null
+    },
+    {
+        question: "8. When designing for users, the first step should focus on:",
+        options: [
+            "a) Exploring material costs and availability",
+            "b) Conducting research to identify the user's need",
+            "c) Creating initial marketing content",
+            "d) Start building a rough prototype"
+        ],
+        correctAnswer: 1, // b
+        image: null
+    },
+    {
+        question: "9. When considering reach and accessibility in design, what percentile of the user population is typically accommodated for maximum reach distances?",
+        options: [
+            "a) 5th percentile",
+            "b) 25th percentile",
+            "c) 50th percentile",
+            "d) 95th percentile"
+        ],
+        correctAnswer: 0, // a
+        image: null
+    },
+    {
+        question: "10. Which of the following is a common symptom of poorly designed interfaces or tools that do not consider human factors?",
+        options: [
+            "a) Increased user satisfaction and efficiency.",
+            "b) Reduced error rates and improved safety.",
+            "c) User fatigue, discomfort, and increased risk of injury.",
+            "d) Lower product manufacturing costs."
+        ],
+        correctAnswer: 2, // c
+        image: null
+    },
+    {
+        question: "11. What does the term \"haptic feedback\" refer to in user interfaces?",
+        options: [
+            "a) Visual cues that indicate a successful interaction.",
+            "b) Auditory signals that provide information to the user.",
+            "c) Tactile sensations that provide confirmation to the user.",
+            "d) Changes in the color or brightness of a display."
+        ],
+        correctAnswer: 2, // c
+        image: null
+    },
+    {
+        question: "12. When designing a safety-critical interface (e.g., in a medical device), which ergonomic principle is paramount in preventing errors?",
+        options: [
+            "a) Minimizing the number of colors used in the interface.",
+            "b) Including as many functions as possible in a single screen for efficiency.",
+            "c) Ensuring the interface is visually attractive and modern.",
+            "d) Designing for clear visibility, intuitive controls, and unambiguous feedback."
+        ],
+        correctAnswer: 3, // d
+        image: null
+    },
+    // Section 3: Materials & Manufacturing Processes
+    {
+        question: "13. CMF in Industrial Design stands for:",
+        options: [
+            "a) Cost, Manufacturing, Functionality",
+            "b) Color, Material, Finish",
+            "c) Concept, Model, Finalize",
+            "d) Creative, Modern, Futuristic"
+        ],
+        correctAnswer: 1, // b
+        image: null
+    },
+    {
+        question: "14. What is the most common manufacturing process used to make plastic bottles?",
+        options: [
+            "a) Injection molding",
+            "b) Compression molding",
+            "c) Blow molding",
+            "d) Thermoforming"
+        ],
+        correctAnswer: 2, // c
+        image: null
+    },
+    {
+        question: "15. \"Draft angle\" is important in injection molding because:",
+        options: [
+            "a) For better ergonomics",
+            "b) To reduce material cost",
+            "c) To reduce mold cost",
+            "d) To remove parts easily"
+        ],
+        correctAnswer: 3, // d
+        image: null
+    },
+    {
+        question: "16. Tolerances are critical because:",
+        options: [
+            "a) They decide color consistency",
+            "b) They eliminate need for testing",
+            "c) They improve aesthetics",
+            "d) They determine fit and function"
+        ],
+        correctAnswer: 3, // d
+        image: null
+    },
+    {
+        question: "17. What is SLS in 3D printing?",
+        options: [
+            "a) A process that solidifies liquid resin layer by layer",
+            "b) A process that melts metal rods into shape",
+            "c) A process that fuses plastic powder using a laser",
+            "d) A process that extrudes filament through a heated nozzle"
+        ],
+        correctAnswer: 2, // c
+        image: null
+    },
+    {
+        question: "18. Which of these is NOT a CAD file format?",
+        options: [
+            "a) STL",
+            "b) STEP",
+            "c) IGES",
+            "d) DXF"
+        ],
+        correctAnswer: 3, // d (Based on provided answer in PDF, though DXF is a CAD format)
+        image: null
+    },
+    // Section 4: Sketching & Visualization
+    {
+        question: "19. Which drawing technique is typically used to represent a 3D object on a 2D surface where parallel lines remain parallel?",
+        options: [
+            "a) Isometric drawing",
+            "b) Trimetric drawing",
+            "c) Orthographic drawing",
+            "d) Perspective drawing"
+        ],
+        correctAnswer: 0, // a
+        image: null
+    },
+    {
+        question: "20. Which perspective does this image have?", // Image was present in PDF
+        options: [
+            "a) One-point perspective",
+            "b) Two-point perspective",
+            "c) Three-point perspective",
+            "d) Isometric view"
+        ],
+        correctAnswer: 1, // b
+        image: './img/quiz-img/id-question-20.png'
+    },
+    {
+        question: "21. Shown below is a strip of paper which is folded multiple times. How many red pawns are placed on the same side of the paper as the blue pawn?", // Image was present in PDF
+        options: [
+            "a) 8",
+            "b) 9",
+            "c) 10",
+            "d) 11"
+        ],
+        correctAnswer: 0, // a
+        image: './img/quiz-img/id-question-21.png'
+    },
+    {
+        question: "22. Which option is a simple rotation of the image given below?", // Image was present in PDF
+        options: [
+            "A) Option A", // Options were images labeled A, B, C, D
+            "B) Option B",
+            "C) Option C",
+            "D) Option D"
+        ],
+        correctAnswer: 1, // B
+        image: './img/quiz-img/id-question-22.png'
+    },
+    {
+        question: "23. Which option is a simple rotation of the image given below?", // Image was present in PDF
+        options: [
+            "a) Option a", // Options were images labeled a, b, c, d
+            "b) Option b",
+            "c) Option c",
+            "d) Option d"
+        ],
+        correctAnswer: 2, // c
+        image: './img/quiz-img/id-question-23.png'
+    },
+    // Section 5: Design Process & Research
+    {
+        question: "24. Which of the following best describes a \"mock-up\" in the design process?",
+        options: [
+            "a) A quick concept sketch used to explore initial design ideas",
+            "b) A working model created to test performance, mechanisms, or user interaction",
+            "c) A non-functional model used to visualize the product's appearance, form, and ergonomics",
+            "d) A small batch of fully functional models manufactured for initial market or user testing"
+        ],
+        correctAnswer: 2, // c
+        image: null
+    },
+    {
+        question: "25. The iterative nature of the design process means:",
+        options: [
+            "a) Design follows a linear path, with each phase fully completed before the next.",
+            "b) Designers often go back to earlier steps based on what they learn later",
+            "c) A finalized concept is set early, reducing changes during testing.",
+            "d) It's a final step to refine the chosen design for production"
+        ],
+        correctAnswer: 1, // b
+        image: null
+    },
+    {
+        question: "26. In the design process, \"pain points\" refer to:",
+        options: [
+            "a) Physical problems like sharp edges, rough surfaces, or unstable bases",
+            "b) Manufacturing defects that occur during mass production",
+            "c) Positive emotional moments created by thoughtful user interaction",
+            "d) Specific frustrations that users face while interacting with a product"
+        ],
+        correctAnswer: 3, // d
+        image: null
+    },
+    {
+        question: "27. Why are Gestalt principles important in the context of design?",
+        options: [
+            "a) They help determine appropriate product dimensions to suit a wide range of human body sizes",
+            "b) They provide rules for creating emotional branding through material selection",
+            "c) They help users intuitively understand its function through form",
+            "d) They influence how users interpret and relate to visual arrangements and spatial composition"
+        ],
+        correctAnswer: 3, // d
+        image: null
+    },
+    {
+        question: "28. What is SCAMPER in the design process?",
+        options: [
+            "a) A method to create new ideas by modifying existing designs",
+            "b) A tool for checking if a design meets functional goals",
+            "c) A process for organizing the steps of a design project",
+            "d) A technique for comparing different design concepts"
+        ],
+        correctAnswer: 0, // a
+        image: null
+    },
+    {
+        question: "29. Why is minimizing part count beneficial?",
+        options: [
+            "a) Reduces design time",
+            "b) Reduces cost and errors",
+            "c) Improves surface quality and finish",
+            "d) Supports a more minimal aesthetic"
+        ],
+        correctAnswer: 1, // b
+        image: null
+    },
+    {
+        question: "30. What is \"lateral thinking\" in the context of idea generation?",
+        options: [
+            "a) Systematically analyzing a problem to find the most logical solution",
+            "b) Exploring alternative problem pathways by deliberately shifting perspective",
+            "c) Focusing on incremental improvements to existing solutions",
+            "d) Strictly adhering to established brainstorming rules"
+        ],
+        correctAnswer: 1, // b
+        image: null
+    },
+    // Section 6: Design Thinking & Manufacturing
+    {
+        question: "31. In the Design Thinking process, which stage directly informs the constraints and feasibility considerations that are critical for manufacturing?",
+        options: [
+            "a) Empathize",
+            "b) Define",
+            "c) Ideate",
+            "d) Prototype"
+        ],
+        correctAnswer: 3, // d
+        image: null
+    },
+    {
+        question: "32. The \"Discover\" phase in the Double Diamond approach is best described as:",
+        options: [
+            "a) Conducting broad research to explore the problem space",
+            "b) Narrowing down insights to define the core design challenge",
+            "c) Developing and iterating on potential solutions",
+            "d) Finalizing and implementing the chosen solution"
+        ],
+        correctAnswer: 0, // a
+        image: null
+    },
+    {
+        question: "33. In DFMA, consolidating parts in a product is primarily intended to:",
+        options: [
+            "a) Improve airflow and thermal performance during operation",
+            "b) Enhance the visual complexity and perceived value",
+            "c) Reduce tooling requirements, assembly steps, and failure points",
+            "d) Increase the number of modular functions in a single unit"
+        ],
+        correctAnswer: 2, // c
+        image: null
+    },
+    {
+        question: "34. Which assembly technique avoids the use of fasteners?",
+        options: [
+            "a) Snap fits",
+            "b) Welding",
+            "c) Adhesives",
+            "d) Riveting"
+        ],
+        correctAnswer: 0, // a
+        image: null
+    },
+    {
+        question: "35. When creating a sheet metal prototype, what is a critical consideration regarding bend radii?",
+        options: [
+            "a) Bend radii have no impact on the structural integrity of the part",
+            "b) The bend radius should be as small as possible to minimize material usage",
+            "c) The bend radius must be compatible with the material thickness to avoid cracking",
+            "d) Standardized bend radii should always be avoided to create unique designs"
+        ],
+        correctAnswer: 2, // c
+        image: null
+    },
+    {
+        question: "36. What is the difference between subtractive and additive manufacturing?",
+        options: [
+            "a) Subtractive removes material from a larger body, while additive forms geometry by layering material",
+            "b) Subtractive creates shape by depositing material selectively; additive sculpts material using cutting tools",
+            "c) Subtractive and additive both build parts layer by layer, but subtractive uses reverse slicing",
+            "d) Subtractive shapes are defined by fusion of surfaces; additive uses tooling paths to eliminate excess"
+        ],
+        correctAnswer: 0, // a
+        image: null
+    },
+    // Section 7: Product Strategy & Teamwork
+    {
+        question: "37. What best describes a Minimum Viable Product (MVP) in the context of design and innovation?",
+        options: [
+            "a) A feature-complete version of the product used to evaluate long-term scaling potential",
+            "b) A visual-only prototype meant to test branding and interface without real functionality",
+            "c) A refined beta release used primarily for public marketing and acquisition",
+            "d) A minimal but functional version launched to a small audience to validate key assumptions quickly"
+        ],
+        correctAnswer: 3, // d
+        image: null
+    },
+    {
+        question: "38. What is a common challenge encountered during the transition from prototyping to mass production?",
+        options: [
+            "a) The availability of skilled designers for large-scale production",
+            "b) Ensuring consistent quality and tolerances at high volumes",
+            "c) The lack of interest from consumers in mass-produced goods",
+            "d) The ease of scaling up 3D printing technology for mass production"
+        ],
+        correctAnswer: 1, // b
+        image: null
+    },
+    {
+        question: "39. What is a Bill of Materials (BOM) in the context of manufacturing?",
+        options: [
+            "a) A comprehensive list of all components required to manufacture a product",
+            "b) A summarized report of operational timelines and production labor estimates",
+            "c) A cost breakdown of material, tooling, packaging, and transportation logistics",
+            "d) A sequence of actions used to monitor quality across manufacturing stages"
+        ],
+        correctAnswer: 0, // a
+        image: null
+    },
+    {
+        question: "40. Why is effective teamwork and collaboration important in an industrial design environment?",
+        options: [
+            "a) It helps maintain consistent visual language across isolated design stages",
+            "b) It improves efficiency by aligning diverse expertise and reducing gaps between disciplines",
+            "c) It allows each team member to focus on their tasks without dependency",
+            "d) It ensures faster approvals by minimizing iterations and shared decisions"
+        ],
+        correctAnswer: 1, // b
+        image: null
+    }
+];
 
 
         // --- DOM Elements ---

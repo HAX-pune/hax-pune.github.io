@@ -64,6 +64,12 @@
             <p class="text-sm text-gray-600 mt-2">Evaluate your mechanical engineering knowledge with this test.</p>
         </div>
         <!-- Link to Mechanical Test -->
+        <div id="id-test-link" class="link-card">
+            <a href="./pages/HAX-ID-test.html">Start the Industrial Design Test</a>
+            <p class="text-sm text-gray-600 mt-2">Evaluate your industial design knowledge with this test.</p>
+        </div>
+
+        <!-- Link to Mechanical Test -->
         <div id="electronics-test-link" class="link-card">
             <a href="./pages/HAX-Mechanical-test.html">Start the Electronics Test</a>
             <p class="text-sm text-gray-600 mt-2">Evaluate your mechanical engineering knowledge with this test.</p>
@@ -89,6 +95,7 @@
             mechanicalTest: true, // Set to false to hide the Mechanical Test link
             electricalTest: false, // Set to false to hide the Electrical Test link
             electronicsTest: false, // Set to false to hide the Electronics Test link
+            industialDesignTest: true, // Set to false to hide the Electronics Test link
             resources: false, // Set to false to hide the Resources link
             contact: true // Set to false to hide the Contact Us link
         };
@@ -111,6 +118,9 @@
         }
         if (!flags.contact) {
             document.getElementById('contact-link').style.display = 'none';
+        }
+        if (!flags.industialDesignTest) {
+            document.getElementById('id-test-link').style.display = 'none';
         }
     </script>
 </body>
